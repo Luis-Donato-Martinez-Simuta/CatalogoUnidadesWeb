@@ -1,24 +1,20 @@
 var express = require('express');
 var router = express.Router();
-let CCDAO = require('../models/CentroCostoDAO')
+let CCDAO = require('../models/CentroCostoDAO');
 
 //Esta funcion te manda a la pagina de logue 
 router.get('/', function (req, res, next) {
   CCDAO.obtenerTodasUnidades((data) => {
     centroCosto = data;
-    console.log(centroCosto);
+    //console.log(centroCosto);
     res.render('main',{centroCosto : centroCosto});
   });
-
 });
 
 //Esta funcion te manda a la pagina principal,
 //Donde se muestran todas las unidades en una tabla dinamica
 router.post('/irMain', function (req, res, next) {
-
   res.render('main');
-
-
 });
 
 //Esta funcion te manda a la pagina donde pueden ver la informacion la informacion del usuario

@@ -1,8 +1,9 @@
 const db = require('../config/database');
 
+//Con esta funcion obtengo todas las unidades en la base de datos
 function obtenerTodasUnidades(callback) {
     let sql = "call obtenerTodasUnidades()";
-    console.log(sql);
+    //console.log(sql);
     db.query(sql, (err, data) => {
         if (err) {
             throw err
