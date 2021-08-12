@@ -10,8 +10,11 @@ html(lang='en')
     .login-container
       .login-info-container
         h1.title Inicio de Sesion
-        form.inputs-container
-          input.input(type='username' placeholder='Nombre usuario')
-          input.input(type='password' placeholder='Contraseña')
+        if acceso == false  
+          div(class="mesajeError")
+            p(class="text") Acceso denegado
+        form.inputs-container(action="logueo"  method='POST')
+          input.input(type='username' name = "username" placeholder='Nombre usuario' required='')
+          input.input(type='password' name = "password" placeholder='Contraseña' required='')
           button.btn Iniciar sesion
       img.image-container(src='images/unnamed.png' alt='')

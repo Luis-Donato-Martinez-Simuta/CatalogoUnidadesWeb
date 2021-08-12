@@ -1,17 +1,15 @@
 var express = require('express');
 var router = express.Router();
 let CCDAO = require('../models/CentroCostoDAO');
+let UsuarioDAO = require('../models/UsuariosDAO');
 
 //Esta funcion te manda a la pagina de logue 
 router.get('/', function (req, res, next) {
   res.render('login');
-  /*
-  CCDAO.obtenerTodasUnidades((data) => {
-    centroCosto = data;
-    //console.log(centroCosto);
-    res.render('main',{centroCosto : centroCosto});
-  });
-  */
+});
+
+router.get('/*', function (req, res, next) {
+  res.render('login');
 });
 
 //Esta funcion te manda a la pagina principal,
@@ -34,7 +32,7 @@ router.post('/irAbout', function (req, res, next) {
 
 //Esta funcion te manda a la pagian de logueo desde las pagians del sistema
 router.post('/irLogin', function (req, res, next) {
-  res.render('main');
+  res.render('login');
 });
 
 //Esta funcion tiene como proposito buscar las unidades que el usuario ingresa
@@ -52,5 +50,26 @@ router.post('/verUnidad', function (req, res, next) {
   res.render('main');
 });
 
+
+router.post('/logueo',function (req, res, next){
+  let {username,password} = req.body;
+  //console.log("User:" + username +" pas: "+ password)
+  UsuarioDAO.logueo( username, password , (data) => {
+    usuario = data;
+
+    if(usuario == null){
+      res.render('login',{acceso:false});
+    }else{
+      CCDAO.obtenerTodasUnidades((data) => {
+        centroCosto = data;
+        console.log(usuario);
+        //console.log(centroCosto);
+        res.render('main',{centroCosto : centroCosto,usuario : usuario});
+      });
+    }
+    
+
+  });
+});
 
 module.exports = router;

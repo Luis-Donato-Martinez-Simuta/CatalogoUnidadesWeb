@@ -185,6 +185,18 @@ body {
     }
 }
 
+.mesajeError{
+    background-color: red;
+    color: white;
+    width: 76%;
+    height: 7%;
+    border-radius: 5px;
+
+}
+
+.text{
+    margin-top: 11px;
+}
 
 
 
