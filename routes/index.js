@@ -4,11 +4,14 @@ let CCDAO = require('../models/CentroCostoDAO');
 
 //Esta funcion te manda a la pagina de logue 
 router.get('/', function (req, res, next) {
+  res.render('login');
+  /*
   CCDAO.obtenerTodasUnidades((data) => {
     centroCosto = data;
     //console.log(centroCosto);
     res.render('main',{centroCosto : centroCosto});
   });
+  */
 });
 
 //Esta funcion te manda a la pagina principal,
