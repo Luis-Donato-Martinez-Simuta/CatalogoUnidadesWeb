@@ -1,0 +1,83 @@
+doctype html
+head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    link(rel="stylesheet", href="/stylesheets/main.css")
+    link(rel="stylesheet", href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css")
+    title Pafina Pincipal
+
+header#main-header
+  #logo-header(href='')
+    
+    label(class="lblBienvenida") Bienvenido
+    br
+    //span.site-desc #{user.nombreUsuario}
+    label(class="lblNombreusuario") root.root
+
+  nav
+    ul
+      li
+        a
+            form.col-12(action="irMain"  method='POST')
+                input(type='hidden'  name="Id" value=1) 
+                button(type="submit" class="per") Inicio
+      li
+        a
+            form.col-12(action="irProfile"  method='POST')
+                input(type='hidden'  name="Id" value=1) 
+                button(type="submit" class="per") Mi perfil
+      li
+        a
+            form.col-12(action="irAbout"  method='POST' name="Id")
+                input(type='hidden'  name="Id" value=1)            
+                button(type="submit" class="per" ) Acerca de                
+      li
+        a 
+            form.col-12(action="irLogin"  method='POST')
+                input(type='hidden'  name="Id" value=1)            
+                button(type="submit" class="per") login
+
+
+
+
+
+#main-container
+  label(class="lblListaUnidades" ) Lista de Unidades
+  br
+  br
+  form.col-12(action="buscarUnidad"  method='POST' name="Id")
+    input( placeholder = 'Buscar...' class="textBuscar" name="textBuscar") 
+    button(type="submit" class="btnBuscar" ) Buscar
+  br
+  br
+  table
+    thead(class="p")
+      
+      tr
+        th UDN
+        th Nombre
+        th Estado
+        th Ciudad
+        th Tipo unidad
+        th Gerente
+        th Telefono
+        th Accion
+
+               
+    tbody        
+    each cc in centroCosto      
+      tr
+        td= cc.UDN   
+        td= cc.nombreCentroCosto   
+        td Estado
+        td Ciudad
+        td= cc.nombreTipo
+        td= cc.nombreGerente
+        td= cc.telefono           
+        td
+          form.col-12(action="verUnidad"  method='POST')
+            input(type='hidden' value= cc.UDN   name="UDN")
+            button(type="submit" class="btnVerUnidad" ) Ver unnidad          
+
+        
+
