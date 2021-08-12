@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 let CCDAO = require('../models/CentroCostoDAO');
 let UsuarioDAO = require('../models/UsuariosDAO');
+var md5 = require("md5");
 
 //Esta funcion te manda a la pagina de logue 
 router.get('/', function (req, res, next) {
@@ -45,29 +46,42 @@ router.post('/buscarUnidad', function (req, res, next) {
 //Si el usuario tiene probilegios podra actualisar o agregar nuevas unidades
 //De no tener pribilegios solo podra ver la informacion
 router.post('/verUnidad', function (req, res, next) {
-  let {UDN} = req.body;
+  let {
+    UDN
+  } = req.body;
   console.log(UDN)
   res.render('main');
 });
 
 
-router.post('/logueo',function (req, res, next){
-  let {username,password} = req.body;
-  //console.log("User:" + username +" pas: "+ password)
-  UsuarioDAO.logueo( username, password , (data) => {
+router.post('/logueo', async function (req, res, next) {
+  let {
+    username,
+    password
+  } = req.body;
+
+  let passwordincriptado = md5(password);
+  md5.
+
+  UsuarioDAO.logueo(username, passwordincriptado, (data) => {
     usuario = data;
 
-    if(usuario == null){
-      res.render('login',{acceso:false});
-    }else{
+    if (usuario == null) {
+      res.render('login', {
+        acceso: false
+      });
+    } else {
       CCDAO.obtenerTodasUnidades((data) => {
         centroCosto = data;
         console.log(usuario);
         //console.log(centroCosto);
-        res.render('main',{centroCosto : centroCosto,usuario : usuario});
+        res.render('main', {
+          centroCosto: centroCosto,
+          usuario: usuario
+        });
       });
     }
-    
+
 
   });
 });

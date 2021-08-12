@@ -2,7 +2,7 @@ const db = require('../config/database');
 
 //Con esta funcion obtengo todas las unidades en la base de datos
 function logueo(username ,password,callback) {
-    console.log("User:" + username +" pas: "+ password)
+    //console.log("User:" + username +" pas: "+ password)
     let sql = "call logueo('"+username+"','"+password+"');";
     //console.log(sql);
     db.query(sql, (err, data) => {
