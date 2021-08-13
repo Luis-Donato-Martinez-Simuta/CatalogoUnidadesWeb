@@ -49,8 +49,8 @@ router.post('/verUnidad', function (req, res, next) {
   let {
     UDN
   } = req.body;
-  console.log(UDN)
-  res.render('main');
+  //console.log(UDN)
+  res.render('construccion');
 });
 
 
