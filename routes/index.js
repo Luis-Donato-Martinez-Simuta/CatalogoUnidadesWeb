@@ -28,7 +28,7 @@ router.post('/irProfile', function (req, res, next) {
 //Esta funcion te manda a la pagina donde se muestra la ifnormacion de la pagian
 //Objetivo, versione y desarrolladores (Firma)
 router.post('/irAbout', function (req, res, next) {
-  res.render('main');
+  res.render('construccion');
 });
 
 //Esta funcion te manda a la pagian de logueo desde las pagians del sistema
