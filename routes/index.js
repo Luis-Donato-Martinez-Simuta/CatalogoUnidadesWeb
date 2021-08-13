@@ -22,7 +22,7 @@ router.post('/irMain', function (req, res, next) {
 //Esta funcion te manda a la pagina donde pueden ver la informacion la informacion del usuario
 //Donde tambien pueden modificar sus informacion
 router.post('/irProfile', function (req, res, next) {
-  res.render('main');
+  res.render('construccion');
 });
 
 //Esta funcion te manda a la pagina donde se muestra la ifnormacion de la pagian
@@ -55,13 +55,14 @@ router.post('/verUnidad', function (req, res, next) {
 
 
 router.post('/logueo', async function (req, res, next) {
+  console.log("Pss")
   let {
     username,
     password
   } = req.body;
 
   let passwordincriptado = md5(password);
-  md5.
+  
 
   UsuarioDAO.logueo(username, passwordincriptado, (data) => {
     usuario = data;
@@ -73,8 +74,6 @@ router.post('/logueo', async function (req, res, next) {
     } else {
       CCDAO.obtenerTodasUnidades((data) => {
         centroCosto = data;
-        console.log(usuario);
-        //console.log(centroCosto);
         res.render('main', {
           centroCosto: centroCosto,
           usuario: usuario

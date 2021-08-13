@@ -19,22 +19,22 @@ header#main-header
       li
         a
             form.col-12(action="irMain"  method='POST')
-                input(type='hidden'  name="Id" value=1) 
+                input(type='hidden'  name="Id" value= usuario.IdUsuario) 
                 button(type="submit" class="per") Inicio
       li
         a
             form.col-12(action="irProfile"  method='POST')
-                input(type='hidden'  name="Id" value=1) 
+                input(type='hidden'  name="Id" value=usuario.IdUsuario) 
                 button(type="submit" class="per") Mi perfil
       li
         a
             form.col-12(action="irAbout"  method='POST' name="Id")
-                input(type='hidden'  name="Id" value=1)            
+                input(type='hidden'  name="Id" value=usuario.IdUsuario)            
                 button(type="submit" class="per" ) Acerca de                
       li
         a 
             form.col-12(action="irLogin"  method='POST')
-                input(type='hidden'  name="Id" value=1)            
+                input(type='hidden'  name="Id" value=usuario.IdUsuario)            
                 button(type="submit" class="per") login
 
 
