@@ -63,7 +63,6 @@ router.post('/logueo', async function (req, res, next) {
 
   let passwordincriptado = md5(password);
   
-
   UsuarioDAO.logueo(username, passwordincriptado, (data) => {
     usuario = data;
 

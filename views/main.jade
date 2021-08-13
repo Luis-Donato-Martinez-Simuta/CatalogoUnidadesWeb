@@ -27,6 +27,12 @@ header#main-header
                 input(type='hidden'  name="Id" value=usuario.IdUsuario) 
                 button(type="submit" class="per") Mi perfil
       li
+        if usuario.tienePrivilegios == true
+          a
+              form.col-12(action="irProfile"  method='POST')
+                  input(type='hidden'  name="Id" value=usuario.IdUsuario) 
+                  button(type="submit" class="per") Ver usuarios            
+      li
         a
             form.col-12(action="irAbout"  method='POST' name="Id")
                 input(type='hidden'  name="Id" value=usuario.IdUsuario)            
@@ -56,6 +62,7 @@ header#main-header
       tr
         th UDN
         th Nombre
+        //th Status
         th Estado
         th Ciudad
         th Tipo unidad
@@ -69,6 +76,7 @@ header#main-header
       tr
         td= cc.UDN   
         td= cc.nombreCentroCosto   
+        //td Status
         td= cc.nombreEstado
         td= cc.nombreCiudad
         td= cc.nombreTipo
