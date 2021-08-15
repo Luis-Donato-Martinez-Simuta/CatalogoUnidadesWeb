@@ -1,15 +1,15 @@
 const db = require('../config/database');
 
-//Con esta funcion obtengo todas las unidades en la base de datos
-function obtenerTodasUnidades(callback) {
-    let sql = "call obtenerTodosCentroCosto()";
-    //console.log(sql);
+//Con esta funcion logue al usuario
+function obtenerTodasFranquicias(callback) {
+
+    let sql = "call obtenerTodasFranquicias();";
+
     db.query(sql, (err, data) => {
         if (err) {
             throw err
         };
         if (data.length > 0) {
-            //console.log('Desde logueo: ' + data[0][0]);
             return callback(data[0]);
         };
 
@@ -17,7 +17,9 @@ function obtenerTodasUnidades(callback) {
     });
 }
 
+
+
 module.exports = {
-    obtenerTodasUnidades
+    obtenerTodasFranquicias
 }
 

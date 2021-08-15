@@ -17,7 +17,43 @@ function logueo(username ,password,callback) {
     });
 }
 
+function obtenerUsuarioPorId(IdUsuario,callback) {
+
+    let sql = "call obtenerUsuarioPorId("+IdUsuario+");";
+
+    db.query(sql, (err, data) => {
+        if (err) {
+            throw err
+        };
+        if (data.length > 0) {
+            return callback(data[0][0]);
+        };
+
+        return callback(null);
+    });
+}
+
+function obtenerTodosUsuarios(callback) {
+
+    let sql = "call obtenerTodosUsuarios();";
+
+    db.query(sql, (err, data) => {
+        if (err) {
+            throw err
+        };
+        if (data.length > 0) {
+            return callback(data[0]);
+        };
+
+        return callback(null);
+    });
+}
+
+
+
 module.exports = {
-    logueo
+    logueo,
+    obtenerUsuarioPorId,
+    obtenerTodosUsuarios
 }
 

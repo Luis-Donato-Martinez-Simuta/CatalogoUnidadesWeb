@@ -11,7 +11,7 @@ head
       button.dropbtn  #{usuario.username}    
       .dropdown-content
           a(class="cont")
-            form.col-12(action="irLogin"  method='POST')
+            form.col-12(action="irLogin"  method='GET')
               input(type='hidden'  name="Id" value= usuario.IdUsuario) 
               button(class="btnMenu")  Mi Perfil                        
           a(class="cont")
@@ -43,49 +43,55 @@ br
 br
 br
 
+
+
+
+
 #main-container
-  label(class="lblListaUnidades" ) Lista de Unidades
-  
+  label(class="lblListaUnidades" ) Lista de usuarios
   br
   br
-
   form.col-12(action="buscarUnidad"  method='POST' name="Id")
-    input( placeholder = 'Referencia' class="textBuscar" name="textBuscar") 
+    input( placeholder = 'Buscar...' class="textBuscar" name="textBuscar") 
     button(type="submit" class="btnBuscar" ) Buscar
-
   br
   br
-
   table
-    thead      
+    thead(class="p")
+      
       tr
-        th UDN
-        th Nombre
-        th Status
-        th Estado
-        th Ciudad
-        th Tipo unidad
-        th Gerente
+        th Id
+        th Nombre        
+        th A. Patterno
+        th A. Materno
         th Telefono
-        th Accion               
+        th Mail
+        th Tipo
+        th Status
+        th Accion
+
+               
     tbody        
-    each cc in centroCosto      
+    each lu in listaUsuarios      
       tr
-        td= cc.UDN   
-        td= cc.nombreCentroCosto   
-        if cc.status == true        
-          td Avtivo
+        td= lu.IdUsuario
+        td= lu.admin           
+        td= lu.paterno
+        td= lu.materno
+        td= lu.telefono
+        td= lu.mail
+        if lu.tienePrivilegios == true
+          td Administrador
+        else 
+          td Normal          
+        if lu.status == true
+          td Activo
         else  
-          td Inactivo
-        td= cc.estado
-        td= cc.ciudad
-        td= cc.nombreTipo
-        td= cc.nombreGerente
-        td= cc.telefono           
+          td Inactivo               
         td
           form.col-12(action="verUnidad"  method='POST')
-            input(type='hidden' value= cc.UDN   name="UDN")
-            button(type="submit" class="btnVerUnidad" ) Ver unidad  
+            input(type='hidden' value= lu.IdUsuario   name="UDN")
+            button(type="submit" class="btnVerUnidad" ) Ver usuario         
 
         
 

@@ -2,6 +2,9 @@ var express = require('express');
 var router = express.Router();
 let CCDAO = require('../models/CentroCostoDAO');
 let UsuarioDAO = require('../models/UsuariosDAO');
+let franquiciaDAO = require('../models/FranquiciasDAO');
+let empresaDAO = require('../models/EmpresaDAO');
+let tipoUnidad = require('../models/TipoUnidad');
 var md5 = require("md5");
 
 //Esta funcion te manda a la pagina de logue 
@@ -13,56 +16,134 @@ router.get('/*', function (req, res, next) {
   res.render('login');
 });
 
-//Esta funcion te manda a la pagina principal,
-//Donde se muestran todas las unidades en una tabla dinamica
-router.post('/irMain', function (req, res, next) {
-  res.render('main');
-});
 
-//Esta funcion te manda a la pagina donde pueden ver la informacion la informacion del usuario
-//Donde tambien pueden modificar sus informacion
-router.post('/irProfile', function (req, res, next) {
-  res.render('construccion');
-});
-
-//Esta funcion te manda a la pagina donde se muestra la ifnormacion de la pagian
-//Objetivo, versione y desarrolladores (Firma)
-router.post('/irAbout', function (req, res, next) {
-  res.render('construccion');
-});
-
-//Esta funcion te manda a la pagian de logueo desde las pagians del sistema
-router.post('/irLogin', function (req, res, next) {
+router.get('/irLogin', function (req, res, next) {
   res.render('login');
 });
 
-//Esta funcion tiene como proposito buscar las unidades que el usuario ingresa
-//En su buscador desde la pagina principal
-router.post('/buscarUnidad', function (req, res, next) {
-  res.render('main');
-});
-
-//Esta funcion te dirigue a una pagina donde esta la informacion de la unidad que el usuario desidio ver
-//Si el usuario tiene probilegios podra actualisar o agregar nuevas unidades
-//De no tener pribilegios solo podra ver la informacion
-router.post('/verUnidad', function (req, res, next) {
+router.post('/irMain', function (req, res, next) {
   let {
-    UDN
+    Id
   } = req.body;
-  //console.log(UDN)
-  res.render('construccion');
+
+  UsuarioDAO.obtenerUsuarioPorId(Id, (data) => {
+    usuario = data;
+    CCDAO.obtenerTodasUnidades((data) => {
+      listaUsuarios = data;
+
+      res.render('main', {
+        listaUsuarios: listaUsuarios,
+        usuario: usuario
+      });
+    });
+  });
 });
 
 
+
+router.post('/verListaUsuarios', function (req, res, next) {
+  let {
+    Id
+  } = req.body;
+
+  UsuarioDAO.obtenerUsuarioPorId(Id, (data) => {
+    usuario = data;
+    UsuarioDAO.obtenerTodosUsuarios((data) => {
+      listaUsuarios = data;
+      res.render('verUsuarios', {
+        listaUsuarios: listaUsuarios,
+        usuario: usuario
+      });
+    });
+  });
+});
+
+router.post('/verListaCentrosCosto', function (req, res, next) {
+  let {
+    Id
+  } = req.body;
+
+  UsuarioDAO.obtenerUsuarioPorId(Id, (data) => {
+    usuario = data;
+    UsuarioDAO.obtenerTodosUsuarios((data) => {
+      listaFranquicias = data;
+
+      res.render('main', {
+        listaFranquicias: listaFranquicias,
+        usuario: usuario
+      });
+    });
+  });
+});
+
+router.post('/verListaFranquicias', function (req, res, next) {
+  let {
+    Id
+  } = req.body;
+
+  UsuarioDAO.obtenerUsuarioPorId(Id, (data) => {
+    usuario = data;
+   
+    franquiciaDAO.obtenerTodasFranquicias((data) =>{
+      listaFranquicia = data;
+
+      res.render('verFranquicias', {
+        listaFranquicia: listaFranquicia,
+        usuario: usuario
+      });
+    });
+  });
+});
+
+router.post('/verListaEmpresas', function (req, res, next) {
+  let {
+    Id
+  } = req.body;
+  
+
+  
+  UsuarioDAO.obtenerUsuarioPorId(Id, (data) => {
+    usuario = data;
+    empresaDAO.obtenerTodasEmpresas((data) => {
+      listaEmpresas = data;
+      
+      res.render('verEmpresas', {
+        listaEmpresas: listaEmpresas,
+        usuario: usuario
+      });
+    });
+  });
+});
+
+router.post('/verListaTipoUnidad', function (req, res, next) {
+  let {
+    Id
+  } = req.body;
+  
+
+  
+  UsuarioDAO.obtenerUsuarioPorId(Id, (data) => {
+    usuario = data;
+    tipoUnidad.obtenerTodosTipoUnidad((data) => {
+      listaTipoUnidad = data;
+      res.render('verTipoUnidad', {
+        listaTipoUnidad: listaTipoUnidad,
+        usuario: usuario
+      });
+    });
+  });
+});
+
+//Fucion que permite hacer el laamado de logue del usuario
 router.post('/logueo', async function (req, res, next) {
-  console.log("Pss")
+
   let {
     username,
     password
   } = req.body;
 
   let passwordincriptado = md5(password);
-  
+
   UsuarioDAO.logueo(username, passwordincriptado, (data) => {
     usuario = data;
 
@@ -79,8 +160,6 @@ router.post('/logueo', async function (req, res, next) {
         });
       });
     }
-
-
   });
 });
 

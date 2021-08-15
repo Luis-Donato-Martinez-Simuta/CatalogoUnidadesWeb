@@ -11,7 +11,7 @@ head
       button.dropbtn  #{usuario.username}    
       .dropdown-content
           a(class="cont")
-            form.col-12(action="irLogin"  method='POST')
+            form.col-12(action="irLogin"  method='GET')
               input(type='hidden'  name="Id" value= usuario.IdUsuario) 
               button(class="btnMenu")  Mi Perfil                        
           a(class="cont")
@@ -59,33 +59,23 @@ br
   table
     thead      
       tr
-        th UDN
-        th Nombre
+        th Id
+        th Nombre        
         th Status
-        th Estado
-        th Ciudad
-        th Tipo unidad
-        th Gerente
-        th Telefono
         th Accion               
     tbody        
-    each cc in centroCosto      
+    each e in listaEmpresas      
       tr
-        td= cc.UDN   
-        td= cc.nombreCentroCosto   
-        if cc.status == true        
-          td Avtivo
-        else  
+        td= e.idEmpresa  
+        td= e.nombreEmpresa
+        if e.status == true         
+          td Activo     
+        else
           td Inactivo
-        td= cc.estado
-        td= cc.ciudad
-        td= cc.nombreTipo
-        td= cc.nombreGerente
-        td= cc.telefono           
         td
           form.col-12(action="verUnidad"  method='POST')
-            input(type='hidden' value= cc.UDN   name="UDN")
-            button(type="submit" class="btnVerUnidad" ) Ver unidad  
+            input(type='hidden' value= e.idEmpresa     name="UDN")
+            button(type="submit" class="btnVerUnidad" ) Ver empresa  
 
         
 
