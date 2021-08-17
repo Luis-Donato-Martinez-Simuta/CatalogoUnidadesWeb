@@ -1,32 +1,79 @@
 doctype html
-html(lang='es')
+head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    link(rel="stylesheet", href="/stylesheets/main.css")
+    link(rel="stylesheet", href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css")
+    title Usuario
 
-  meta(charset='UTF-8')
-  title Menù Lateral con Css
-  link(rel='stylesheet' href='/stylesheets/verUnUsuario.css')
-  //link(rel="stylesheet", href="/stylesheets/main.css")
-
+  body
+    header.header
+      .container
+        .btn-menu
+          label(for='btn-menu') ☰
+        .logo
+          h1 Administrar
+        nav.menu
+          a 
+            form(action="verListaCentrosCosto"  method='POST')
+              input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
+              button(type="submit" class="btnMenu") Inicio
+          a
+            form(action="miPerfil"  method='POST')
+              input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
+              button(type="submit" class="btnMenu") Mi perfil
+          a 
+            form(action="enConstruccion"  method='POST')
+              input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
+              button(type="submit" class="btnMenu") Acerca de          
+          a
+            form(action="irLogin"  method='GET')
+              input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
+              button(type="submit" class="btnMenu") LogOut
+    .capa
+    // -------------
+    input#btn-menu(type='checkbox')
+    .container-menu
+      .cont-menu
+        nav
+          a
+            form(action="verListaEmpresas"  method='POST')
+              input(type='hidden' value= usuario.IdUsuario  name="IdUsuario")
+              button(type="submit" class="btnMenu") Empresas
+          a 
+            form(action="verListaFranquicias"  method='POST')
+              input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
+              button(type="submit" class="btnMenu") Franquicias
+          a 
+            form(action="verListaTipoUnidad"  method='POST')
+              input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
+              button(type="submit" class="btnMenu") Tipos de Unidades
+          a 
+            form(action="verListaCentrosCosto"  method='POST')
+              input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
+              button(type="submit" class="btnMenu") Centros de Costo
+          a 
+            form(action="verListaUsuarios"  method='POST')
+              input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
+              button(type="submit" class="btnMenu") Usuarios
   
-header.header
-  .container
-    .btn-menu
-      label(for='btn-menu') ☰
-    .logo
-      h1 Administrar
-    nav.menu
-      a(href='#') Inicio
-      a(href='#') Mi Perfil
-      a(href='#') Acerca de 
-      a(href='#') LogOut
-.capa
-// -------------
-input#btn-menu(type='checkbox')
-.container-menu
-  .cont-menu
-    nav
-      a(href='#') Empresas
-      a(href='#') Franquicias
-      a(href='#') Tipos de Unidad
-      a(href='#') Centros de Costo
-      a(href='#') Usuarios
-    label(for='btn-menu') ✖️
+        label(for='btn-menu') ✖️ 
+
+#main-container
+  
+
+  input( placeholder = 'nombre' value=usuario.nombreCompleto class="textNombre" name="textNombre")
+  input( placeholder = 'username' value=usuario.username class="textUsername" name="textUsername")   
+  input( placeholder = 'mail' value=usuario.mail class="textMail" name="textMail")       
+  input( placeholder = 'tel' value=usuario.telefono class="textTelefono" name="textTelefono") 
+  input( placeholder = 'direccion' value=usuario.direccion class="textDireccion" name="textDireccion") 
+
+  if usuario.esAdministrador == true  
+    input( placeholder = 'esAdmin' value='Administrador' class="textAdmin" name="textAdmin")
+  else 
+    input( placeholder = 'esAdmin' value='Empleado' class="textAdmin" name="textAdmin") 
+
+  if usuario.status == true         
+    input( placeholder = 'status' value='Activo' class="textStatus" name="textStatus")     
+  else
+    input( placeholder = 'status' value='Inactivo' class="textStatus" name="textStatus") 

@@ -1,10 +1,9 @@
-
 const db = require('../config/database');
 
 //Con esta funcion logue al usuario
-function obtenerTodasEmpresas(callback) {
+function obtenerTodosTipoUnidad(callback) {
 
-    let sql = "call obtenerTodasEmpresas();";
+    let sql = "call obtenerTodosTipoUnidad();";
 
     db.query(sql, (err, data) => {
         if (err) {
@@ -18,10 +17,10 @@ function obtenerTodasEmpresas(callback) {
     });
 }
 
-function obtenerEmpresaPorId(IdEmpresa,callback) {
-    console.log("id empresa uno: "+ IdEmpresa)
+function obtenerTipoUnidadPorId(IdTipoUnidad,callback) {
+    console.log("id Tipo unidad uno: "+ IdTipoUnidad)
 
-    let sql = "call obtenerEmpresaPorId("+IdEmpresa+");";
+    let sql = "call obtenerTipoUnidadPorId("+IdTipoUnidad+");";
 
     db.query(sql, (err, data) => {
         if (err) {
@@ -36,8 +35,9 @@ function obtenerEmpresaPorId(IdEmpresa,callback) {
 }
 
 module.exports = {
-    obtenerTodasEmpresas,
-    obtenerEmpresaPorId
+    obtenerTodosTipoUnidad,
+    obtenerTipoUnidadPorId
+
 }
 
 

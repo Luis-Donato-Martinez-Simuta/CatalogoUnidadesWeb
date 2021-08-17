@@ -1,9 +1,11 @@
 doctype html
-html(lang='es')
-  head
-    meta(charset='UTF-8')
-    title Lista Centros de Costo
-    link(rel='stylesheet' href='/stylesheets/main.css')
+head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    link(rel="stylesheet", href="/stylesheets/main.css")
+    link(rel="stylesheet", href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css")
+    title Tipo unidad
+
   body
     header.header
       .container
@@ -55,42 +57,15 @@ html(lang='es')
               input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
               button(type="submit" class="btnMenu") Usuarios
   
-        label(for='btn-menu') ✖️
+        label(for='btn-menu') ✖️ 
+
+#main-container
 
 
-    #main-container
-      label(class="lblListaUnidades" ) Lista de Centros de Costo
-      
-   
-
-      form.col-12(action="buscarUnidad"  method='POST' name="Id")
-        input( placeholder = 'Referencia' class="textBuscar" name="textBuscar") 
-        button(type="submit" class="btnBuscar" ) Buscar
-
-
-      table
-        //caption Statement Summary
-        thead
-          tr
-            th UDN
-            th Nombre
-            th Estado
-            th Ciudad
-            th Tipo unidad
-            th Gerente
-            th Telefono
-            th Accion
-        tbody
-        each cc in listaCentrosCosotos
-          tr
-            td= cc.UDN   
-            td= cc.nombreCentroCosto   
-            td= cc.estado 
-            td= cc.ciudad
-            td= cc.nombreTipo
-            td= cc.nombreGerente
-            td= cc.telefono
-            td
-              form.col-12(action="verCentroCosto"  method='POST')
-                input(type='hidden' value= cc.idCentroCosto   name="IdCentroCosto")
-                button(type="submit" class="btnVerUnidad" ) Ver unidad  
+input( placeholder = 'nombre' value=tipoUnidad.nombreTipo class="textNombre" name="textNombre") 
+input( placeholder = 'orden' value=tipoUnidad.orden class="textOrden" name="textOrden")  
+            
+if tipoUnidad.status == true         
+  input( placeholder = 'status' value='Activo' class="textStatus" name="textStatus")     
+else
+  input( placeholder = 'status' value='Inactivo' class="textStatus" name="textStatus") 

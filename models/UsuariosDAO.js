@@ -18,9 +18,10 @@ function logueo(username ,password,callback) {
 }
 
 function obtenerUsuarioPorId(IdUsuario,callback) {
+    console.log("id usuario uno: "+ IdUsuario)
 
     let sql = "call obtenerUsuarioPorId("+IdUsuario+");";
-    console.log("Sql: "+sql);
+
     db.query(sql, (err, data) => {
         if (err) {
             throw err
