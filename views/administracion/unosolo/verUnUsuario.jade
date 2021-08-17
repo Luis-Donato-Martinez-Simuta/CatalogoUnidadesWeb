@@ -1,0 +1,32 @@
+doctype html
+html(lang='es')
+
+  meta(charset='UTF-8')
+  title Menù Lateral con Css
+  link(rel='stylesheet' href='/stylesheets/verUnUsuario.css')
+  //link(rel="stylesheet", href="/stylesheets/main.css")
+
+  
+header.header
+  .container
+    .btn-menu
+      label(for='btn-menu') ☰
+    .logo
+      h1 Administrar
+    nav.menu
+      a(href='#') Inicio
+      a(href='#') Mi Perfil
+      a(href='#') Acerca de 
+      a(href='#') LogOut
+.capa
+// -------------
+input#btn-menu(type='checkbox')
+.container-menu
+  .cont-menu
+    nav
+      a(href='#') Empresas
+      a(href='#') Franquicias
+      a(href='#') Tipos de Unidad
+      a(href='#') Centros de Costo
+      a(href='#') Usuarios
+    label(for='btn-menu') ✖️

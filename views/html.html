@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Reserve a hotel room</h1>
+    <form>
+        <fieldset>
+            <legend>Personal data</legend>
+            <div class="double-input">
+                <div class="form-input-container">
+                    <label for="fname">First name</label>
+                    <input type="text" name="firstname" id="fname" placeholder="Jan" minlength="3" required />
+                </div>
+                <div class="form-input-container">
+                    <label for="lname">Last name</label>
+                    <input type="text" name="lastname" id="lname" placeholder="Kowalski" required />
+                </div>
+            </div>
+            <div class="double-input">
+                <div class="form-input-container">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email" required placeholder="jan.kowalski@gmail.com"
+                        required />
+                </div>
+                <div class="form-input-container">
+                    <label for="phone">Phone</label>
+                    <input type="tel" name="phone" id="phone" placeholder="213 742 069" required />
+                </div>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Room details</legend>
+            <div class="double-input">
+                <div class="form-input-container">
+                    <label for="hotelcity">City</label>
+                    <select name="hotelcity" id="hotelcity">
+                        <option value="Wroclaw">Wroclaw</option>
+                        <option value="Warsaw">Warsaw</option>
+                        <option value="Plock">Plock</option>
+                        <option value="Krakow">Krakow</option>
+                    </select>
+                </div>
+                <div class="form-input-container">
+                    <label for="capacity">For (capacity)</label>
+                    <input type="number" name="capacity" id="capacity" value="1" min="1" max="10" step="1" />
+                </div>
+            </div>
+            <div class="double-input">
+                <div class="form-input-container date-select">
+                    <label for="startdate">Start date</label>
+                    <select name="start-date-day" id="start-date-day">
+                        <option value="Day" disabled selected>Day</option>
+                        <option value="1">1</option>
+                    </select>
+                    <select name="start-date-month" id="start-date-month">
+                        <option value="Month" disabled selected>Month</option>
+                        <option value="1">01</option>
+                    </select>
+                </div>
+                <div class="form-input-container date-select">
+                    <label for="enddate">End date</label>
+                    <select name="end-date-day" id="end-date-day">
+                        <option value="Day" disabled selected>Day</option>
+                        <option value="1">1</option>
+                    </select>
+                    <select name="end-date-month" id="end-date-month">
+                        <option value="Month" disabled selected>Month</option>
+                        <option value="1">01</option>
+                    </select>
+                </div>
+            </div>
+        </fieldset>
+        <button type="submit">Submit a request</button>
+    </form>
+</body>
+
+</html>

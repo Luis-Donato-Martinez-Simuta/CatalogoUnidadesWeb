@@ -1,0 +1,109 @@
+doctype html
+html(lang='es')
+  head
+    meta(charset='UTF-8')
+    title Centros de Costo
+    link(rel='stylesheet' href='/stylesheets/main.css')
+  body
+    header.header
+      .container
+        .btn-menu
+          label(for='btn-menu') ☰
+        .logo
+          h1 Administrar
+        nav.menu
+          a 
+            form(action="verListaCentrosCosto"  method='POST')
+              input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
+              button(type="submit" class="btnMenu") Inicio
+          a
+            form(action="miPerfil"  method='POST')
+              input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
+              button(type="submit" class="btnMenu") Mi perfil
+          a 
+            form(action="enConstruccion"  method='POST')
+              input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
+              button(type="submit" class="btnMenu") Acerca de          
+          a
+            form(action="irLogin"  method='GET')
+              input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
+              button(type="submit" class="btnMenu") LogOut
+    .capa
+    // -------------
+    input#btn-menu(type='checkbox')
+    .container-menu
+      .cont-menu
+        nav
+          a
+            form(action="verListaEmpresas"  method='POST')
+              input(type='hidden' value= usuario.IdUsuario  name="IdUsuario")
+              button(type="submit" class="btnMenu") Empresas
+          a 
+            form(action="verListaFranquicias"  method='POST')
+              input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
+              button(type="submit" class="btnMenu") Franquicias
+          a 
+            form(action="verListaTipoUnidad"  method='POST')
+              input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
+              button(type="submit" class="btnMenu") Tipos de Unidades
+          a 
+            form(action="verListaCentrosCosto"  method='POST')
+              input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
+              button(type="submit" class="btnMenu") Centros de Costo
+          a 
+            form(action="verListaUsuarios"  method='POST')
+              input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
+              button(type="submit" class="btnMenu") Usuarios
+  
+        label(for='btn-menu') ✖️
+
+    h1 Reserve a hotel room
+    form
+    fieldset
+        legend Personal data
+        .double-input
+        .form-input-container
+            label(for='fname') First name
+            input#fname(type='text' name='firstname' placeholder='Jan' minlength='3' required='')
+        .form-input-container
+            label(for='lname') Last name
+            input#lname(type='text' name='lastname' placeholder='Kowalski' required='')
+        .double-input
+        .form-input-container
+            label(for='email') Email
+            input#email(type='email' name='email' required='' placeholder='jan.kowalski@gmail.com')
+        .form-input-container
+            label(for='phone') Phone
+            input#phone(type='tel' name='phone' placeholder='213 742 069' required='')
+    fieldset
+        legend Room details
+        .double-input
+        .form-input-container
+            label(for='hotelcity') City
+            select#hotelcity(name='hotelcity')
+            option(value='Wroclaw') Wroclaw
+            option(value='Warsaw') Warsaw
+            option(value='Plock') Plock
+            option(value='Krakow') Krakow
+        .form-input-container
+            label(for='capacity') For (capacity)
+            input#capacity(type='number' name='capacity' value='1' min='1' max='10' step='1')
+        .double-input
+        .form-input-container.date-select
+            label(for='startdate') Start date
+            select#start-date-day(name='start-date-day')
+            option(value='Day' disabled='' selected='') Day
+            option(value='1') 1
+            select#start-date-month(name='start-date-month')
+            option(value='Month' disabled='' selected='') Month
+            option(value='1') 01
+        .form-input-container.date-select
+            label(for='enddate') End date
+            select#end-date-day(name='end-date-day')
+            option(value='Day' disabled='' selected='') Day
+            option(value='1') 1
+            select#end-date-month(name='end-date-month')
+            option(value='Month' disabled='' selected='') Month
+            option(value='1') 01
+    button(type='submit') Submit a request
+    
