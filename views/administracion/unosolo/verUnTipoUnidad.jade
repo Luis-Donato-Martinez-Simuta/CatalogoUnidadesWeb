@@ -1,11 +1,9 @@
 doctype html
-head
-    meta(charset="UTF-8")
-    meta(http-equiv="X-UA-Compatible", content="IE=edge")
-    link(rel="stylesheet", href="/stylesheets/main.css")
-    link(rel="stylesheet", href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css")
-    title Tipo unidad
-
+html(lang='es')
+  head
+    meta(charset='UTF-8')
+    title Tipo Unidad
+    link(rel='stylesheet' href='/stylesheets/verUnTipo.css')
   body
     header.header
       .container
@@ -57,15 +55,46 @@ head
               input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
               button(type="submit" class="btnMenu") Usuarios
   
-        label(for='btn-menu') ✖️ 
-
-#main-container
+        label(for='btn-menu') ✖️
 
 
-input( placeholder = 'nombre' value=tipoUnidad.nombreTipo class="textNombre" name="textNombre") 
-input( placeholder = 'orden' value=tipoUnidad.orden class="textOrden" name="textOrden")  
-            
-if tipoUnidad.status == true         
-  input( placeholder = 'status' value='Activo' class="textStatus" name="textStatus")     
-else
-  input( placeholder = 'status' value='Inactivo' class="textStatus" name="textStatus") 
+
+.container2
+  form(action="enConstruccion" method='POST')
+    input(type='hidden' value= tipoUnidad.idTipoUnidad   name="IdTipoUnidad") 
+    h3 Informacion del Tipo de Unidad
+    .row
+      .col-half
+        h4 Nombre
+          .input-group.input-group-icon
+            input(type="text", value = tipoUnidad.nombreTipo , placeholder="Nombre Tipo Unidad")
+            .input-icon
+              i.fa.fa-user
+        
+        h4 Status
+        .input-group 
+          select
+            if tipoUnidad.status == true
+              option(class="opt" value = empresa.status) Activo
+              option(class="opt" value = flase) Inactivo
+            else 
+              option(class="opt" value = tipoUnidad.status) Inactivo 
+              option(class="opt" value = true) Activo
+
+      .col-half
+        h4 Orden
+          .input-group.input-group-icon
+            input(type="text",  value = tipoUnidad.orden  , placeholder="Orden")
+            .input-icon
+              i.fa.fa-envelope
+                        
+    .row
+      
+      .input-group
+        //input(type="checkbox", id="terms")
+        //label(for="terms" style="font-size: 80%;") Acepto los términos y condiciones de Softlife, y confirmo que he leído las políticas de privacidad. 
+        br
+        input(type="submit", value="Guardar" class="brnGuardar")
+        for(action="enConstruccion" method='POST')            
+          input(type="submit", value="Nuevo" class ="brnNuevo") 
+ 

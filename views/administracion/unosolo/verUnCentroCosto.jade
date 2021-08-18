@@ -2,7 +2,7 @@ doctype html
 html(lang='es')
   head
     meta(charset='UTF-8')
-    title Mi Perfil
+    title Centro de costo
     link(rel='stylesheet' href='/stylesheets/unCentroCosto.css')
   body
     header.header
@@ -57,93 +57,151 @@ html(lang='es')
   
         label(for='btn-menu') ✖️
 
-// .h3 Comienza tu prueba gratuita de 30 días ya mismo
-// p o puedes comprar tu plan en Softlife ahora mismo
+
 
 .container2
   form(action="enConstruccion" method='POST')
-    input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
+    input(type='hidden' value= centroCosto.idCentroCosto   name="IdCentroCosto") 
     h3 Informacion del centro de costo
     .row
       .col-half
-        h4 Enpresa
+        h4 UDN
           .input-group.input-group-icon
-            input(type="text", value = usuario.nombreCompleto , placeholder="Nombre completo")
+            input(type="text", value = centroCosto.UDN , placeholder="UDN")
             .input-icon
               i.fa.fa-user
-          h4 Nombre de usuario
+
+        h4 Empresa
+        .input-group 
+          select
+            option(class="opt" value = centroCosto.IdEmpresa) #{centroCosto.nombreEmpresa} 
+            each e in listaEmpresas 
+              option(class="opt" value = e.IdEmpresa) #{e.nombreEmpresa} 
+
+        h4 Tipo Unidad
+        .input-group 
+          select
+            option(class="opt" value = centroCosto.IdTipoUnidad) #{centroCosto.nombreTipo} 
+            each t in listaTipoUnidades 
+              option(class="opt" value = t.IdTipoUnidad) #{t.nombreTipo}
+
+        h4 Gerente
           .input-group.input-group-icon
-            input(type="username",  value = usuario.username , placeholder="Nombre de usuario")
+            input(type="text",  value = centroCosto.nombreGerente , placeholder="Nombre Gerente")
             .input-icon
               i.fa.fa-envelope
-      .col-half
-        h4 Telefono
-        .input-group.input-group-icon
-          input(type="text",  value = usuario.telefono,  placeholder="Telefono")
-          .input-icon
-            i.fa.fa-key
-        h4 Email 
-        .input-group.input-group-icon
-          input(type="email",  value = usuario.mail,  placeholder="Email")
-          .input-icon
-            i.fa.fa-key   
-      h4 Direccion 
-      .input-group.input-group-icon
-        input(type="text",  value = usuario.direccion,  placeholder="Direccion")
-        .input-icon
-          i.fa.fa-key                  
-    //.row
-      .col-half
-        h4 Fecha de nacimiento
-        .input-group
-          .col-third
-            input(type="text", placeholder="DD")
-          .col-third
-            input(type="text", placeholder="MM")
-          .col-third
-            input(type="text", placeholder="AAAA")
-      .col-half
-        h4 Género
-        .input-group
-          input(type="radio", name="gender", value="male", id="gender-male")
-          label(for="gender-male") Hombre
-          input(type="radio", name="gender", value="female", id="gender-female")
-          label(for="gender-female") Mujer
-    .row
-      .col-half
-        h3 ¿Quieres cambiar tu contraseña? 
-        input(type="checkbox", id="cambiarPass")
-        label(for="terms" style="font-size: 80%;") Seleciona este checkbox para cambiar tu contrasella al momento de guardar
-        h4 Ingresa tu nueva contraseña
-        .input-group.input-group-icon
-          input(type="password", placeholder="Contraseña nueva")
-          .input-icon
-            i.fa.fa-credit-card
-      .col-half
-        br
-        br
-        h4 Confirmar nueva contraseña
-        .input-group.input-group-icon
-          input(type="password", placeholder="Contraseña nueva")
 
-    //.row
+        h4 Telefono
+          .input-group.input-group-icon
+            input(type="text",  value = centroCosto.telefono , placeholder="Telefono Centro de Costo")
+            .input-icon
+              i.fa.fa-envelope
+
+
       .col-half
-        h4 Verificación (obligatorio)
-        .input-group.input-group-icon
-          input(type="text", placeholder="Teléfono móvil")
-          .input-icon
-            i.fa.fa-phone
-      .col-half
-        h4 Tamaño de la iglesia
-        .input-group
+        h4 Nombre Centro de Costo
+          .input-group.input-group-icon
+            input(type="text",  value = centroCosto.nombreCentroCosto , placeholder="Nombre Centro de Costo")
+            .input-icon
+              i.fa.fa-envelope
+        
+        h4 Franquicia
+          .input-group 
+            select
+              option(class="opt" value = centroCosto.IdFranquicia) #{centroCosto.nombreFranquicia} 
+              each f in listaFranquicias 
+                option(class="opt" value = f.IdFranquicia) #{f.nombreFranquicia} 
+        h4 Status
+        .input-group 
           select
-            option 50 a 99 personas
-            option 100 a 499 personas
-            option 500 a 999 personas
-            option 1.000 a 4.999 personas
-            option más de 5.000 personas
+            if centroCosto.status == true
+              option(class="opt" value = centroCosto.status) Activo
+              option(class="opt" value = flase) Inactivo
+            else 
+              option(class="opt" value = empresa.status) Inactivo 
+              option(class="opt" value = true) Activo
+        
+        h4 SubGerente
+          .input-group.input-group-icon
+            input(type="text",  value = centroCosto.nombresubGerente , placeholder="Nombre SubGerente")
+            .input-icon
+              i.fa.fa-envelope   
+
+        h4 Email Gerente
+        .input-group.input-group-icon
+          input(type="email",  value = centroCosto.mailGerente,  placeholder="Email")
+          .input-icon
+            i.fa.fa-key 
+                          
+    
     .row
-      //h4 Términos y condiciones
+      
+      .input-group
+        //input(type="checkbox", id="terms")
+        //label(for="terms" style="font-size: 80%;") Acepto los términos y condiciones de Softlife, y confirmo que he leído las políticas de privacidad. 
+        br
+        input(type="submit", value="Guardar" class="brnGuardar")
+        for(action="enConstruccion" method='POST')            
+          input(type="submit", value="Nuevo" class ="brnNuevo")
+
+//direccion contenedor
+.container2
+  form(action="enConstruccion" method='POST')
+    input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
+    h3 Informacion de Direccion centro de costo
+    .row
+      .col-half
+        h4 Estado
+          .input-group.input-group-icon
+            input(type="text", value = centroCosto.estado , placeholder="Estado")
+            .input-icon
+              i.fa.fa-user
+        h4 Colonia
+          .input-group.input-group-icon
+            input(type="text",  value = centroCosto.colonia , placeholder="Colonia")
+            .input-icon
+              i.fa.fa-envelope
+        h4 Direccion
+
+      .col-half
+        h4 Ciudad
+            .input-group.input-group-icon
+              input(type="text",  value = centroCosto.ciudad , placeholder="Ciudad")
+              .input-icon
+                i.fa.fa-envelope
+
+         
+      .input-group.input-group-icon
+        input(type="text",  value = centroCosto.direccion,  placeholder="Direccion")
+        .input-icon
+          i.fa.fa-key 
+
+      
+
+    .row 
+      .col-half
+        h4 Numero Exterior
+        .input-group.input-group-icon
+          input(type="text",  value = centroCosto.numeroExterior,  placeholder="Numero Exterior")
+          .input-icon
+            i.fa.fa-key 
+
+        h4 codigo Postal
+          .input-group.input-group-icon
+            input(type="text",  value = centroCosto.CP , placeholder="Codigo Postal")
+            .input-icon
+              i.fa.fa-envelope
+        
+        
+      .col-half
+        h4 Numero Interior
+          .input-group.input-group-icon
+            input(type="text",  value = centroCosto.numeroInterior , placeholder="Numero Interior")
+            .input-icon
+              i.fa.fa-envelope
+   
+    .row
+      
       .input-group
         //input(type="checkbox", id="terms")
         //label(for="terms" style="font-size: 80%;") Acepto los términos y condiciones de Softlife, y confirmo que he leído las políticas de privacidad. 

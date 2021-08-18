@@ -4,7 +4,7 @@ head
     meta(http-equiv="X-UA-Compatible", content="IE=edge")
     link(rel="stylesheet", href="/stylesheets/main.css")
     link(rel="stylesheet", href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css")
-    title Pafina Pincipal
+    title Pagina Pincipal
 
   body
     header.header
@@ -89,8 +89,8 @@ head
             else
               td Inactivo
             td
-              form.col-12(action="enConstruccion"  method='POST')
-                input(type='hidden' value= tu.IdTipoUnidad    name="UDN")
+              form.col-12(action="verTipoUnidad"  method='POST')
+                input(type='hidden' value= tu.IdTipoUnidad    name="IdTipoUnidad")
                 button(type="submit" class="btnVerUnidad" ) Ver Tipo Unidad
 
         

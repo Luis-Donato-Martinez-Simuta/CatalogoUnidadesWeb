@@ -4,7 +4,7 @@ let CCDAO = require('../models/CentroCostoDAO');
 let UsuarioDAO = require('../models/UsuariosDAO');
 let franquiciaDAO = require('../models/FranquiciasDAO');
 let empresaDAO = require('../models/EmpresaDAO');
-let tipoUnidad = require('../models/TipoUnidad');
+let tipoUnidadDAO = require('../models/TipoUnidadDAO');
 var md5 = require("md5");
 
 //Esta funcion te manda a la pagina de logue 
@@ -75,7 +75,7 @@ router.post('/verCentroCosto', function (req, res, next) {
           let listaFranquicias = data;
           console.log(listaFranquicias);
 
-          tipoUnidad.obtenerTodosTipoUnidad((data)=>{
+          tipoUnidadDAO.obtenerTodosTipoUnidad((data)=>{
             let listaTipoUnidades = data;
             console.log(listaTipoUnidades);
             res.render('administracion/unosolo/verUnCentroCosto',{
@@ -114,6 +114,24 @@ router.post('/verListaEmpresas', function (req, res, next) {
   });
 });
 
+//funcion un solo empresa
+router.post('/verEmpresa', function (req, res, next) {
+  let {
+    IdEmpresa
+  } = req.body;
+
+  console.log("id empresa: "+IdEmpresa)
+  
+  empresaDAO.obtenerEmpresaPorId(IdEmpresa, (data) => {
+    empresa = data;
+  
+    console.log("empresa:", empresa)
+    res.render('administracion/unosolo/verUnaEmpresa', {
+      empresa: empresa
+    });
+  });
+  
+});
 
 //Madnamos a llamar la pantalla de las franquicias
 router.post('/verListaFranquicias', function (req, res, next) {
@@ -136,6 +154,24 @@ router.post('/verListaFranquicias', function (req, res, next) {
   });
 });
 
+//funcion un solo franquicia
+router.post('/verFranquicia', function (req, res, next) {
+  let {
+    IdFranquicia
+  } = req.body;
+
+  console.log("id franquicia: "+IdFranquicia)
+  franquiciaDAO.obtenerFranquiciaPorId(IdFranquicia, (data) => {
+    franquicia = data;
+   
+    console.log("franquicia:", franquicia)
+    res.render('administracion/unosolo/verUnaFranquicia', {
+      franquicia: franquicia
+    });
+    
+  });
+});
+
 //Madnamos a llamar la pantalla de tipo unidad
 router.post('/verListaTipoUnidad', function (req, res, next) {
   //Recuperamos el Id del usuario en la pantalla
@@ -146,7 +182,7 @@ router.post('/verListaTipoUnidad', function (req, res, next) {
   UsuarioDAO.obtenerUsuarioPorId(IdUsuario, (data) => {
     usuario = data;
     //Obtenemos todas los tipos de unidad 
-    tipoUnidad.obtenerTodosTipoUnidad((data) => {
+    tipoUnidadDAO.obtenerTodosTipoUnidad((data) => {
       listaTipoUnidad = data;
       //Rendirizamos la pantalla de lista de tipos de unidad
       res.render('administracion/listas/listaTipoUnidades', {
@@ -154,6 +190,24 @@ router.post('/verListaTipoUnidad', function (req, res, next) {
         usuario: usuario
       });
     });
+  });
+});
+
+//funcion un solo tipo unidad
+router.post('/verTipoUnidad', function (req, res, next) {
+  let {
+    IdTipoUnidad
+  } = req.body;
+
+  console.log("id tipo: "+IdTipoUnidad)
+  tipoUnidadDAO.obtenerTipoUnidadPorId(IdTipoUnidad, (data) => {
+    tipoUnidad = data;
+   
+    console.log("tipo unidad:", tipoUnidad)
+    res.render('administracion/unosolo/verUnTipoUnidad', {
+      tipoUnidad: tipoUnidad
+    });
+    
   });
 });
 
@@ -176,6 +230,21 @@ router.post('/verListaUsuarios', function (req, res, next) {
       });
     });
   });
+});
+
+router.post("/verUsuario", function (req, res, next) {
+  //Obtenemos el nombre de usuario y la contraseña para buscarlo en el sistema
+  let {
+    IdUsuario
+  } = req.body;
+  UsuarioDAO.obtenerUsuarioPorId(IdUsuario, (data) => {
+    let usuario = data;
+    console.log(usuario);
+    res.render('administracion/unosolo/verUnUsuario', {
+      usuario: usuario
+    });
+  });
+
 });
 
 //Fucion que permite hacer el laamado de logue del usuario
