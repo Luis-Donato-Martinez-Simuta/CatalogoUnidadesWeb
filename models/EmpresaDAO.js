@@ -18,28 +18,10 @@ function obtenerTodasEmpresas(callback) {
     });
 }
 
-function obtenerEmpresaPorId(IdEmpresa,callback) {
-    console.log("id empresa uno: "+ IdEmpresa)
-
-    let sql = "call obtenerEmpresaPorId("+IdEmpresa+");";
-
-    db.query(sql, (err, data) => {
-        if (err) {
-            throw err
-        };
-        if (data.length > 0) {
-            return callback(data[0][0]);
-        };
-
-        return callback(null);
-    });
-}
-
 
 
 module.exports = {
-    obtenerTodasEmpresas,
-    obtenerEmpresaPorId
+    obtenerTodasEmpresas
 }
 
 
