@@ -75,7 +75,7 @@ html(lang='es')
         .input-group 
           select
             if tipoUnidad.status == true
-              option(class="opt" value = empresa.status) Activo
+              option(class="opt" value = tipoUnidad.status) Activo
               option(class="opt" value = flase) Inactivo
             else 
               option(class="opt" value = tipoUnidad.status) Inactivo 
