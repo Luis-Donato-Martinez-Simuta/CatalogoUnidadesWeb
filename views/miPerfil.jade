@@ -2,8 +2,8 @@ doctype html
 html(lang='es')
   head
     meta(charset='UTF-8')
-    title Centros de Costo
-    link(rel='stylesheet' href='/stylesheets/main.css')
+    title Mi Perfil
+    link(rel='stylesheet' href='/stylesheets/miPerfil.css')
   body
     header.header
       .container
@@ -57,53 +57,98 @@ html(lang='es')
   
         label(for='btn-menu') ✖️
 
-    h1 Reserve a hotel room
-    form
-    fieldset
-        legend Personal data
-        .double-input
-        .form-input-container
-            label(for='fname') First name
-            input#fname(type='text' name='firstname' placeholder='Jan' minlength='3' required='')
-        .form-input-container
-            label(for='lname') Last name
-            input#lname(type='text' name='lastname' placeholder='Kowalski' required='')
-        .double-input
-        .form-input-container
-            label(for='email') Email
-            input#email(type='email' name='email' required='' placeholder='jan.kowalski@gmail.com')
-        .form-input-container
-            label(for='phone') Phone
-            input#phone(type='tel' name='phone' placeholder='213 742 069' required='')
-    fieldset
-        legend Room details
-        .double-input
-        .form-input-container
-            label(for='hotelcity') City
-            select#hotelcity(name='hotelcity')
-            option(value='Wroclaw') Wroclaw
-            option(value='Warsaw') Warsaw
-            option(value='Plock') Plock
-            option(value='Krakow') Krakow
-        .form-input-container
-            label(for='capacity') For (capacity)
-            input#capacity(type='number' name='capacity' value='1' min='1' max='10' step='1')
-        .double-input
-        .form-input-container.date-select
-            label(for='startdate') Start date
-            select#start-date-day(name='start-date-day')
-            option(value='Day' disabled='' selected='') Day
-            option(value='1') 1
-            select#start-date-month(name='start-date-month')
-            option(value='Month' disabled='' selected='') Month
-            option(value='1') 01
-        .form-input-container.date-select
-            label(for='enddate') End date
-            select#end-date-day(name='end-date-day')
-            option(value='Day' disabled='' selected='') Day
-            option(value='1') 1
-            select#end-date-month(name='end-date-month')
-            option(value='Month' disabled='' selected='') Month
-            option(value='1') 01
-    button(type='submit') Submit a request
-    
+// .h3 Comienza tu prueba gratuita de 30 días ya mismo
+// p o puedes comprar tu plan en Softlife ahora mismo
+
+.container2
+  form(action="enConstruccion" method='POST')
+    input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
+    h3 Mi Informacion
+    .row
+      .col-half
+        h4 Nombre completo
+          .input-group.input-group-icon
+            input(type="text", value = usuario.nombreCompleto , placeholder="Nombre completo")
+            .input-icon
+              i.fa.fa-user
+          h4 Nombre de usuario
+          .input-group.input-group-icon
+            input(type="username",  value = usuario.username , placeholder="Nombre de usuario")
+            .input-icon
+              i.fa.fa-envelope
+      .col-half
+        h4 Telefono
+        .input-group.input-group-icon
+          input(type="text",  value = usuario.telefono,  placeholder="Telefono")
+          .input-icon
+            i.fa.fa-key
+        h4 Email 
+        .input-group.input-group-icon
+          input(type="email",  value = usuario.mail,  placeholder="Email")
+          .input-icon
+            i.fa.fa-key   
+      h4 Direccion 
+      .input-group.input-group-icon
+        input(type="text",  value = usuario.direccion,  placeholder="Direccion")
+        .input-icon
+          i.fa.fa-key                  
+    //.row
+      .col-half
+        h4 Fecha de nacimiento
+        .input-group
+          .col-third
+            input(type="text", placeholder="DD")
+          .col-third
+            input(type="text", placeholder="MM")
+          .col-third
+            input(type="text", placeholder="AAAA")
+      .col-half
+        h4 Género
+        .input-group
+          input(type="radio", name="gender", value="male", id="gender-male")
+          label(for="gender-male") Hombre
+          input(type="radio", name="gender", value="female", id="gender-female")
+          label(for="gender-female") Mujer
+    .row
+      .col-half
+        h3 ¿Quieres cambiar tu contraseña? 
+        input(type="checkbox", id="cambiarPass")
+        label(for="terms" style="font-size: 80%;") Seleciona este checkbox para cambiar tu contrasella al momento de guardar
+        h4 Ingresa tu nueva contraseña
+        .input-group.input-group-icon
+          input(type="password", placeholder="Contraseña nueva")
+          .input-icon
+            i.fa.fa-credit-card
+      .col-half
+        br
+        br
+        h4 Confirmar nueva contraseña
+        .input-group.input-group-icon
+          input(type="password", placeholder="Contraseña nueva")
+
+    //.row
+      .col-half
+        h4 Verificación (obligatorio)
+        .input-group.input-group-icon
+          input(type="text", placeholder="Teléfono móvil")
+          .input-icon
+            i.fa.fa-phone
+      .col-half
+        h4 Tamaño de la iglesia
+        .input-group
+          select
+            option 50 a 99 personas
+            option 100 a 499 personas
+            option 500 a 999 personas
+            option 1.000 a 4.999 personas
+            option más de 5.000 personas
+    .row
+      //h4 Términos y condiciones
+      .input-group
+        //input(type="checkbox", id="terms")
+        //label(for="terms" style="font-size: 80%;") Acepto los términos y condiciones de Softlife, y confirmo que he leído las políticas de privacidad. 
+        br
+        input(type="submit", value="Guardar" class="brnGuardar")
+        for(action="enConstruccion" method='POST')            
+          input(type="submit", value="Nuevo" class ="brnNuevo")
+

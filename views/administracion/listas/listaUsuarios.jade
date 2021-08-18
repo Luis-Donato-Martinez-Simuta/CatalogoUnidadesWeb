@@ -4,7 +4,7 @@ head
     meta(http-equiv="X-UA-Compatible", content="IE=edge")
     link(rel="stylesheet", href="/stylesheets/main.css")
     link(rel="stylesheet", href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css")
-    title Lista Usuario
+    title Pafina Pincipal
 
   body
     header.header
@@ -74,8 +74,6 @@ head
           tr
             th Id
             th Nombre        
-            th A. Patterno
-            th A. Materno
             th Telefono
             th Mail
             th Tipo
@@ -87,21 +85,20 @@ head
         each lu in listaUsuarios      
           tr
             td= lu.IdUsuario
-            td= lu.admin           
-            td= lu.paterno
-            td= lu.materno
+            td= lu.nombreCompleto           
             td= lu.telefono
             td= lu.mail
-            if lu.tienePrivilegios == true
+            if lu.esAdministrador == true
               td Administrador
             else 
-              td Normal          
+              td Solo lectura     
+
             if lu.status == true
               td Activo
             else  
               td Inactivo               
             td
-              form.col-12(action="VerUsuario"  method='POST')
+              form.col-12(action="enConstruccion"  method='POST')
                 input(type='hidden' value= lu.IdUsuario   name="IdUsuario")
                 button(type="submit" class="btnVerUnidad" ) Ver usuario         
 

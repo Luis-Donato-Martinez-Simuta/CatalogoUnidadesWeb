@@ -18,11 +18,12 @@ function obtenerTodasUnidades(callback) {
 }
 
 function obtenerCentroCostoID(IdCentroCosto,callback) {
-    console.log("id centro costo uno: "+ IdCentroCosto)
-
+    //console.log("id centro costo uno: "+ IdCentroCosto)
     let sql = "call obtenerCentroCostoID("+IdCentroCosto+");";
+    //console.log("Desde el DAO");
 
     db.query(sql, (err, data) => {
+        //console.log(data[0][0]);
         if (err) {
             throw err
         };
