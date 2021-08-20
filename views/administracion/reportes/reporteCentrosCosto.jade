@@ -1,0 +1,80 @@
+doctype html
+html(lang='es')
+  head
+    meta(charset='UTF-8')
+    title Centros de Costo
+    link(rel='stylesheet' href='/stylesheets/reportes/reportes.css')
+  body
+
+
+    #encabezado
+      
+
+    #main-container
+      label(class="lblNameGrupo" ) GRUPO DOMINOS
+      br
+      br
+      label() _____________________________________________________________________________________________________________________________
+      br
+      br
+      label(class="lblElaborado") Reporte elaborado por: #{usuario.nombreCompleto}
+      br
+      br
+      laber(class="lblElaborado") El #{fecha} a las #{hora} hrs
+      br  
+      br
+      br    
+      
+      label(class="lblTitulo" ) Censtros de Costo en el Sistema
+      
+
+
+      table
+        //caption Statement Summary
+        thead
+          tr
+            th UDN
+            th Nombre
+            th Empresa
+            th Franquicia
+            th Tipo unidad
+            th Status
+            th Gerente 
+            th Sub Gerente 
+            th Telefono 
+            th(class="mailGerente") Email Gerente
+            th(class="calle")  Calle
+            th Numero Interior 
+            th Numero Exteriro 
+            th Colonia 
+            th Ciudad 
+            th Estado 
+            th Codigo Postal
+
+        tbody
+        each cc in centroCosto
+          tr
+            td= cc.UDN   
+            td= cc.nombreCentroCosto
+            td= cc.nombreEmpresa
+            td= cc.nombreFranquicia
+            td= cc.nombreTipo
+            if cc.status == true
+              td Activo 
+            else  
+              td Inactivo
+            td= cc.nombreGerente
+            td= cc.nombresubGerente
+            td= cc.telefono
+            td= cc.mailGerente
+            td= cc.direccion
+            td= cc.numeroInterior
+            td= cc.numeroExterior
+            td= cc.colonia
+            td= cc.ciudad
+            td= cc.estado
+            td= cc.CP
+  
+
+
+

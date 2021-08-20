@@ -3,7 +3,7 @@ html(lang='es')
   head
     meta(charset='UTF-8')
     title Empresa
-    link(rel='stylesheet' href='/stylesheets/verUnaEmpresa.css')
+    link(rel='stylesheet' href='/stylesheets/unCentroCosto.css')
   body
     header.header
       .container
@@ -60,85 +60,79 @@ html(lang='es')
 
 
 .container2
-  form(action="enConstruccion" method='POST')
+  form(action="guardarEmpresa" method='POST')
+    input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
     input(type='hidden' value= empresa.idEmpresa   name="IdEmpresa") 
     h3 Informacion de la Empresa
     .row
       .col-half
         h4 Nombre Empresa
           .input-group.input-group-icon
-            input(type="text", value = empresa.nombreEmpresa , placeholder="Nombre Empresa")
+            input(type="text",name='nombreEmpresa', value = empresa.nombreEmpresa , placeholder="Nombre Empresa")
             .input-icon
               i.fa.fa-user
-        h4 Estado
+        h4 Calle
+        .input-group.input-group-icon
+          input(type="text", name='domicilio', value = empresa.domicilio,  placeholder="Domicilio")
+          .input-icon
+            i.fa.fa-key
+        h4 Numero Exterior
           .input-group.input-group-icon
-            input(type="text",  value = empresa.estado , placeholder="Estado")
+            input(type="text", name='numeroExterior', value = empresa.numeroExterior , placeholder="Numero Exterior")
             .input-icon
               i.fa.fa-envelope
-        h4 Colonia
+        h4 Ciudad
           .input-group.input-group-icon
-            input(type="text",  value = empresa.colonia , placeholder="Colonia")
+            input(type="text", name='ciudad' value = empresa.ciudad , placeholder="Ciudad")
             .input-icon
               i.fa.fa-envelope
         
-      
+        h4 Pais
+        .input-group.input-group-icon
+          input(type="text", name='pais',  value = empresa.pais , placeholder="Pais")
+          .input-icon
+            i.fa.fa-envelope
+ 
       .col-half
         h4 Status
         .input-group 
-          select
+          select(name = "status")
             if empresa.status == true
-              option(class="opt" value = empresa.status) Activo
-              option(class="opt" value = flase) Inactivo
+              option(class="opt" value = '1') Activo
+              option(class="opt" value ='0') Inactivo
             else 
-              option(class="opt" value = empresa.status) Inactivo 
-              option(class="opt" value = true) Activo
-        h4 Ciudad
-          .input-group.input-group-icon
-            input(type="text",  value = empresa.ciudad , placeholder="Ciudad")
-            .input-icon
-              i.fa.fa-envelope
-      
-      .col-half
-        h4 Domicilio
-        .input-group.input-group-icon
-          input(type="text",  value = empresa.domicilio,  placeholder="Domicilio")
-          .input-icon
-            i.fa.fa-key 
-
-
-      
-    .row 
-      .col-half 
+              option(class="opt" value = '0') Inactivo 
+              option(class="opt" value = '1') Activo
         h4 Numero Interior
         .input-group.input-group-icon
-          input(type="text",  value = empresa.numeroInterior , placeholder="Numero Interior")
+          input(type="text", name='numeroInterior', value = empresa.numeroInterior , placeholder="Numero Interior")
           .input-icon
             i.fa.fa-envelope
-        
+        h4 Colonia
+          .input-group.input-group-icon
+            input(type="text", name='colonia' value = empresa.colonia , placeholder="Colonia")
+            .input-icon
+              i.fa.fa-envelope
+        h4 Estado
+          .input-group.input-group-icon
+            input(type="text", name='estado' value = empresa.estado , placeholder="Estado")
+            .input-icon
+              i.fa.fa-envelope
         h4 CP
           .input-group.input-group-icon
-            input(type="text",  value = empresa.CP , placeholder="Codigo Postal")
+            input(type="text", name='CP', value = empresa.CP , placeholder="Codigo Postal")
             .input-icon
               i.fa.fa-envelope
-
-
-      .col-half
-        h4 Numero Exterior
-          .input-group.input-group-icon
-            input(type="text",  value = empresa.numeroExterior , placeholder="Numero Exterior")
-            .input-icon
-              i.fa.fa-envelope
-        h4 Pais
-        .input-group.input-group-icon
-          input(type="text",  value = empresa.pais , placeholder="Pais")
-          .input-icon
-            i.fa.fa-envelope
-                     
     .row
-      
-      .input-group
-        br
-        input(type="submit", value="Guardar" class="brnGuardar")
-        for(action="enConstruccion" method='POST')            
-          input(type="submit", value="Nuevo" class ="brnNuevo")
+      .input-group    
+        //form(action="guardarEmpresa" method='POST')    
+        //input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")                     
+        input(type="submit", value="Guardar" class ="brnGuardar")
+
+.container3
+  .row
+    .input-group    
+      form(action="nuevaEmpresa" method='POST')    
+        input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")                     
+        input(type="submit", value="Nuevo" class ="brnNuevo")
 

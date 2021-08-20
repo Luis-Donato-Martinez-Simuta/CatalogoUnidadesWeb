@@ -113,7 +113,7 @@ function guardarDatosCentroCosto2(
     console.log(sql);
     
     db.query(sql, (err, data) => {
-        console.log("Desde el dao" + data[0][0].IdTemp);
+        
         if (err) {
             throw err
         };

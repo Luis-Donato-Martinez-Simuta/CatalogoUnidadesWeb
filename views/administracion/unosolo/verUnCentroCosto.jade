@@ -154,29 +154,29 @@ form(action="guardarCentroCosto" method='POST' class="abajo")
     h3 Informacion de Direccion centro de costo
     .row
       .col-half
-        h4 Estado
+        h4 Calle
           .input-group.input-group-icon
-            input(type="text",name="estado", value = centroCosto.estado , placeholder="Estado")
+            input(type="text",name="direccion", value = centroCosto.direccion , placeholder="Callle")
             .input-icon
               i.fa.fa-user
-        h4 Colonia
+        h4 Numero Exterior
           .input-group.input-group-icon
-            input(type="text", name="colonia",  value = centroCosto.colonia , placeholder="Colonia")
+            input(type="text", name="numeroExterior",  value = centroCosto.numeroExterior , placeholder="Numero Exterior")
             .input-icon
               i.fa.fa-envelope
         
 
       .col-half
-        h4 Ciudad
+        h4 Numero Interior
             .input-group.input-group-icon
-              input(type="text", name="ciudad",  value = centroCosto.ciudad , placeholder="Ciudad")
+              input(type="text", name="numeroInterior",  value = centroCosto.numeroInterior , placeholder="Numero interior")
               .input-icon
                 i.fa.fa-envelope
 
       .col-half
-        h4 Direccion
+        h4 Colonia
         .input-group.input-group-icon
-          input(type="text", name="direccion", value = centroCosto.direccion,  placeholder="Direccion")
+          input(type="text", name="colonia", value = centroCosto.colonia,  placeholder="Colonia")
           .input-icon
             i.fa.fa-key 
 
@@ -184,9 +184,9 @@ form(action="guardarCentroCosto" method='POST' class="abajo")
 
     .row 
       .col-half
-        h4 Numero Exterior
+        h4 Ciudad
         .input-group.input-group-icon
-          input(type="text", name="numeroExterior", value = centroCosto.numeroExterior,  placeholder="Numero Exterior")
+          input(type="text", name="ciudad", value = centroCosto.ciudad,  placeholder="Ciudad")
           .input-icon
             i.fa.fa-key 
 
@@ -198,9 +198,9 @@ form(action="guardarCentroCosto" method='POST' class="abajo")
         
         
       .col-half
-        h4 Numero Interior
+        h4 Estado 
           .input-group.input-group-icon
-            input(type="text", name="numeroInterior",  value = centroCosto.numeroInterior , placeholder="Numero Interior")
+            input(type="text", name="estado",  value = centroCosto.estado , placeholder="Estado")
             .input-icon
               i.fa.fa-envelope
   

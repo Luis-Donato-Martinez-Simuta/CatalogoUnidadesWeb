@@ -66,7 +66,9 @@ html(lang='es')
       form.col-12(action="buscarUnidad"  method='POST' name="Id")
         input( placeholder = 'Referencia' class="textBuscar" name="textBuscar") 
         button(type="submit" class="btnBuscar" ) Buscar
-
+      form.col-12(action="reporteCentroCosto"  method='POST' name="Id")
+        input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
+        button(type="submit" class="btnReporte" ) Generar reporte
 
       table
         //caption Statement Summary
@@ -97,34 +99,3 @@ html(lang='es')
                 button(type="submit" class="btnVerUnidad" ) Ver unidad  
 
 
-      
-      //table
-        thead      
-          tr
-            th UDN
-            th Nombre
-            th Status
-            th Estado
-            th Ciudad
-            th Tipo unidad
-            th Gerente
-            th Telefono
-            th Accion               
-        tbody        
-        each cc in centroCosto      
-          tr
-            td= cc.UDN   
-            td= cc.nombreCentroCosto   
-            if cc.status == true        
-              td Avtivo
-            else  
-              td Inactivo
-            td= cc.estado
-            td= cc.ciudad
-            td= cc.nombreTipo
-            td= cc.nombreGerente
-            td= cc.telefono           
-            td
-              form.col-12(action="verUnidad"  method='POST')
-                input(type='hidden' value= cc.UDN   name="UDN")
-                button(type="submit" class="btnVerUnidad" ) Ver unidad  
