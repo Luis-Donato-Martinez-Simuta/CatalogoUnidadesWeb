@@ -3,7 +3,7 @@ html(lang='es')
   head
     meta(charset='UTF-8')
     title Empresa
-    link(rel='stylesheet' href='/stylesheets/unCentroCosto.css')
+    link(rel='stylesheet' href='/stylesheets/verUnaEmpresa.css')
   body
     header.header
       .container
@@ -61,6 +61,11 @@ html(lang='es')
 
 .container2
   form(action="guardarEmpresa" method='POST')
+    if tipoMensaje == 1 
+      label Datos guardados correctamente
+    else  
+      if tipoMensaje == 2
+        label Algo salio mal, los datos no se guardaron
     input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
     input(type='hidden' value= empresa.idEmpresa   name="IdEmpresa") 
     h3 Informacion de la Empresa

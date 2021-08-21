@@ -4,7 +4,7 @@ head
     meta(http-equiv="X-UA-Compatible", content="IE=edge")
     link(rel="stylesheet", href="/stylesheets/main.css")
     link(rel="stylesheet", href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css")
-    title Pafina Pincipal
+    title Tipos de unidades
 
   body
     header.header
@@ -75,22 +75,23 @@ head
       table
         thead      
           tr
-            th Id
+            //th Id
             th Nombre        
             th Status
             th Accion               
         tbody        
         each tu in listaTipoUnidad      
           tr
-            td= tu.IdTipoUnidad  
+            //td= tu.IdTipoUnidad  
             td= tu.nombreTipo 
             if tu.status == true         
               td Activo     
             else
               td Inactivo
             td
-              form.col-12(action="enConstruccion"  method='POST')
-                input(type='hidden' value= tu.IdTipoUnidad    name="UDN")
+              form.col-12(action="verTipoUnidad"  method='POST')
+                input(type='hidden' value= tu.IdTipoUnidad    name="IdTipoUnidad")
+                input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
                 button(type="submit" class="btnVerUnidad" ) Ver Tipo Unidad
 
         
