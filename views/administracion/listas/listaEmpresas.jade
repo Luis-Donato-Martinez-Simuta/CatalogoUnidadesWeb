@@ -66,9 +66,9 @@ head
     br
     br
 
-    form.col-12(action="buscarUnidad"  method='POST' name="Id")
-      input( placeholder = 'Referencia' class="textBuscar" name="textBuscar") 
-      button(type="submit" class="btnBuscar" ) Buscar
+    form.col-12(action="reporteEmpresas"  method='POST' name="Id")
+      input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
+      button(type="submit" class="btnReporte" ) Generar reporte
 
     br
     br

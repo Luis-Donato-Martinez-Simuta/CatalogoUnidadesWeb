@@ -59,13 +59,13 @@ html(lang='es')
 
 
 form(action="guardarCentroCosto" method='POST' class="abajo")
+
   .container2
-   
     if tipoMensaje == 1 
-      label Datos guardados correctamente
+      label(class="ok") Datos guardados correctamento
     else  
       if tipoMensaje == 2
-        label Algo salio mal, los datos no se guardaron
+        label(class="lblError") Algo salio mal, los datos no se guardaron
       
     input(type='hidden' value= centroCosto.idCentroCosto   name="IdCentroCosto") 
     input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
@@ -211,11 +211,13 @@ form(action="guardarCentroCosto" method='POST' class="abajo")
         //input(type="checkbox", id="terms")
         //label(for="terms" style="font-size: 80%;") Acepto los términos y condiciones de Softlife, y confirmo que he leído las políticas de privacidad. 
         br
-        input(type="submit", value="Guardar" class="brnGuardar")
+        if usuario.esAdministrador == true 
+          input(type="submit", value="Guardar" class="brnGuardar")
 
 .container3
   .row
     .input-group    
-      form(action="nuevoCentroCosto" method='POST')    
-        input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")                     
-        input(type="submit", value="Nuevo" class ="brnNuevo")
+      if usuario.esAdministrador == true 
+        form(action="nuevoCentroCosto" method='POST')    
+          input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")                     
+          input(type="submit", value="Nuevo" class ="brnNuevo")

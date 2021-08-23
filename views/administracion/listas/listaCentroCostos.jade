@@ -24,7 +24,7 @@ html(lang='es')
             form(action="enConstruccion"  method='POST')
               input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
               button(type="submit" class="btnMenu") Acerca de          
-          a
+          a          
             form(action="irLogin"  method='GET')
               input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
               button(type="submit" class="btnMenu") LogOut
@@ -49,7 +49,7 @@ html(lang='es')
           a 
             form(action="verListaCentrosCosto"  method='POST')
               input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
-              button(type="submit" class="btnMenu") Centros de Costo
+              button(type="submit" class="btnMenu") Centros de Costo         
           a 
             form(action="verListaUsuarios"  method='POST')
               input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
@@ -63,7 +63,7 @@ html(lang='es')
       
    
 
-      form.col-12(action="buscarUnidad"  method='POST' name="Id")
+      //form.col-12(action="buscarUnidad"  method='POST' name="Id")
         input( placeholder = 'Referencia' class="textBuscar" name="textBuscar") 
         button(type="submit" class="btnBuscar" ) Buscar
       form.col-12(action="reporteCentroCosto"  method='POST' name="Id")

@@ -4,7 +4,7 @@ head
     meta(http-equiv="X-UA-Compatible", content="IE=edge")
     link(rel="stylesheet", href="/stylesheets/main.css")
     link(rel="stylesheet", href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css")
-    title Usuarios
+    title Pafina Pincipal
 
   body
     header.header
@@ -63,16 +63,16 @@ head
       label(class="lblListaUnidades" ) Lista de usuarios
       br
       br
-      form.col-12(action="buscarUnidad"  method='POST' name="Id")
-        input( placeholder = 'Buscar...' class="textBuscar" name="textBuscar") 
-        button(type="submit" class="btnBuscar" ) Buscar
+      form.col-12(action="reporteUsuarios"  method='POST' name="Id")
+        input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
+        button(type="submit" class="btnReporte" ) Generar reporte
       br
       br
       table
         thead(class="p")
           
           tr
-            //th Id
+            th Id
             th Nombre        
             th Telefono
             th Mail
@@ -84,7 +84,7 @@ head
         tbody        
         each lu in listaUsuarios      
           tr
-            //td= lu.IdUsuario
+            td= lu.IdUsuario
             td= lu.nombreCompleto           
             td= lu.telefono
             td= lu.mail
@@ -99,8 +99,9 @@ head
               td Inactivo               
             td
               form.col-12(action="verUsuario"  method='POST')
-                input(type='hidden' value= lu.IdUsuario   name="IdUsuario")
-                button(type="submit" class="btnVerUnidad" ) Ver usuario         
+                input(type='hidden' value= lu.IdUsuario   name="IdUsuarioLista")
+                input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
+                button(type="submit" class="btnVerUnidad" ) Ver usuario      
 
           
 

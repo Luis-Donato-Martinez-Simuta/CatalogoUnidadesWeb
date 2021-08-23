@@ -4,7 +4,7 @@ head
     meta(http-equiv="X-UA-Compatible", content="IE=edge")
     link(rel="stylesheet", href="/stylesheets/main.css")
     link(rel="stylesheet", href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css")
-    title Tipos de unidades
+    title Pafina Pincipal
 
   body
     header.header
@@ -60,14 +60,14 @@ head
         label(for='btn-menu') ✖️ 
 
     #main-container
-      label(class="lblListaUnidades" ) Lista de Unidades
+      label(class="lblListaUnidades" ) Lista de Tipos de Unidades
       
       br
       br
-
-      form.col-12(action="buscarUnidad"  method='POST' name="Id")
-        input( placeholder = 'Referencia' class="textBuscar" name="textBuscar") 
-        button(type="submit" class="btnBuscar" ) Buscar
+      
+      form.col-12(action="reporteTipoUnidad"  method='POST' name="Id")
+        input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
+        button(type="submit" class="btnReporte" ) Generar reporte
 
       br
       br
@@ -75,14 +75,14 @@ head
       table
         thead      
           tr
-            //th Id
+            th Id
             th Nombre        
             th Status
             th Accion               
         tbody        
         each tu in listaTipoUnidad      
           tr
-            //td= tu.IdTipoUnidad  
+            td= tu.IdTipoUnidad  
             td= tu.nombreTipo 
             if tu.status == true         
               td Activo     

@@ -65,9 +65,9 @@ head
       br
       br
 
-      form.col-12(action="buscarUnidad"  method='POST' name="Id")
-        input( placeholder = 'Referencia' class="textBuscar" name="textBuscar") 
-        button(type="submit" class="btnBuscar" ) Buscar
+      form.col-12(action="reporteFranquicia"  method='POST' name="Id")
+        input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
+        button(type="submit" class="btnReporte" ) Generar reporte
 
       br
       br
@@ -75,21 +75,22 @@ head
       table
         thead      
           tr
-            //th Id
+            th Id
             th Nombre
+            
             th Status
             th Accion               
         tbody        
         each f in listaFranquicia      
           tr
-            //td= f.idFranquicia  
+            td= f.idFranquicia  
             td= f.nombreFranquicia 
             if f.status == true         
               td Activo     
             else
               td Inactivo
             td
-              form.col-12(action="verFranquicia"  method='POST')
+              form.col-12(action="verUnaFranquicia"  method='POST')
                 input(type='hidden' value= f.idFranquicia    name="IdFranquicia")
                 input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
                 button(type="submit" class="btnVerUnidad" ) Ver franquicia  

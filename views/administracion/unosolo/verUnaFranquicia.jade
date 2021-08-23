@@ -61,10 +61,10 @@ html(lang='es')
 .container2
     form(action="guardarFranquicia" method='POST')
       if tipoMensaje == 1 
-        label Datos guardados correctamente
+        label(class="ok") Datos guardados correctamente
       else  
         if tipoMensaje == 2
-          label Algo salio mal, los datos no se guardaron
+          label(class="lblError") Algo salio mal, los datos no se guardaron
       input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
       input(type='hidden' value= franquicia.idFranquicia   name="IdFranquicia") 
       h3 Informacion de Franquicia
@@ -81,22 +81,25 @@ html(lang='es')
             select(name = "status")
               if franquicia.status == true
                 option(class="opt" value = '1') Activo
-                option(class="opt" value ='0') Inactivo
+                if usuario.esAdministrador == true
+                  option(class="opt" value ='0') Inactivo
               else 
                 option(class="opt" value = '0') Inactivo 
-                option(class="opt" value = '1') Activo
+                if usuario.esAdministrador == true
+                  option(class="opt" value = '1') Activo
               
                     
       .row
         
         .input-group
-          
-          input(type="submit", value="Guardar" class="brnGuardar")
+          if usuario.esAdministrador == true
+            input(type="submit", value="Guardar" class="brnGuardar")
 
 .container3
   .row 
     .input-group
-      form(action="nuevaFranquicia" method='POST')    
-        input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")        
-        input(type="submit", value="Nuevo" class ="brnNuevo")
+      if usuario.esAdministrador == true
+        form(action="nuevaFranquicia" method='POST')    
+          input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")        
+          input(type="submit", value="Nuevo" class ="brnNuevo")
 

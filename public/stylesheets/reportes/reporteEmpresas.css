@@ -156,7 +156,7 @@ tr:nth-child(even) {
 }
 
 table{
-	font-size: 8px;
+	font-size: 14px;
 	font-weight: bold;
 }
 
@@ -182,17 +182,12 @@ table{
 	margin-top: 1%;
 }
 
-.mailGerente{
-	width: 200px;
-}
 
 .calle{
 	width: 100px;
 }
 
-.containerFecha{
-	/*background-color:red*/
-}
+
 
 
 .lblElaboradoFecha{

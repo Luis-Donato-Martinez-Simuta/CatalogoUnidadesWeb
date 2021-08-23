@@ -4,9 +4,12 @@ let CCDAO = require('../models/CentroCostoDAO');
 let UsuarioDAO = require('../models/UsuariosDAO');
 let franquiciaDAO = require('../models/FranquiciasDAO');
 let empresaDAO = require('../models/EmpresaDAO');
-let tipoUnidadDAO = require('../models/TipoUnidadDAO');
-let calendario = require('../models/calendario');
+let tipoUnidadDAO = require('../models/TipoUnidad');
+//let calendario = require('../models/calendario');
 var md5 = require("md5");
+const {
+  Router
+} = require('express');
 //var request = require('re');
 
 
@@ -126,21 +129,23 @@ router.post('/verEmpresa', function (req, res, next) {
     IdUsuario
   } = req.body;
 
-  console.log("id empresa: "+IdEmpresa)
-  
-  UsuarioDAO.obtenerUsuarioPorId(IdUsuario, (data) =>{
+  console.log("id empresa: " + IdEmpresa)
+
+  UsuarioDAO.obtenerUsuarioPorId(IdUsuario, (data) => {
     let usuario = data;
     empresaDAO.obtenerEmpresaPorId(IdEmpresa, (data) => {
       empresa = data;
-    
+
       console.log("empresa:", empresa)
       res.render('administracion/unosolo/verUnaEmpresa', {
         empresa: empresa,
-        usuario:usuario,
-        tipoMensaje: 0
+        usuario: usuario
       });
     });
   });
+
+
+
 });
 
 
@@ -165,23 +170,25 @@ router.post('/verListaFranquicias', function (req, res, next) {
   });
 });
 
-//funcion un solo franquicia
-router.post('/verFranquicia', function (req, res, next) {
+
+
+
+router.post('/verUnaFranquicia', function (req, res, next) {
   let {
     IdFranquicia,
     IdUsuario
   } = req.body;
 
-  console.log("id franquicia: "+IdFranquicia)
-  UsuarioDAO.obtenerUsuarioPorId(IdUsuario, (data) =>{
+  console.log("id franquicia: " + IdFranquicia)
+  UsuarioDAO.obtenerUsuarioPorId(IdUsuario, (data) => {
     let usuario = data;
     franquiciaDAO.obtenerFranquiciaPorId(IdFranquicia, (data) => {
       franquicia = data;
-    
+
       console.log("franquicia:", franquicia)
       res.render('administracion/unosolo/verUnaFranquicia', {
         franquicia: franquicia,
-        usuario:usuario,
+        usuario: usuario,
         tipoMensaje: 0
       });
     });
@@ -209,27 +216,26 @@ router.post('/verListaTipoUnidad', function (req, res, next) {
   });
 });
 
-//funcion un solo tipo unidad
+
 router.post('/verTipoUnidad', function (req, res, next) {
   let {
     IdTipoUnidad,
     IdUsuario
-    
+
   } = req.body;
 
-  console.log("id tipo: "+IdTipoUnidad)
-  UsuarioDAO.obtenerUsuarioPorId(IdUsuario, (data) =>{
+  //console.log("id tipo: "+IdTipoUnidad)
+  UsuarioDAO.obtenerUsuarioPorId(IdUsuario, (data) => {
     let usuario = data;
     tipoUnidadDAO.obtenerTipoUnidadPorId(IdTipoUnidad, (data) => {
       tipoUnidad = data;
-    
-      console.log("tipo unidad:", tipoUnidad)
+
+      //console.log("tipo unidad:", tipoUnidad)
       res.render('administracion/unosolo/verUnTipoUnidad', {
         tipoUnidad: tipoUnidad,
-        usuario:usuario,
+        usuario: usuario,
         tipoMensaje: 0
       });
-      
     });
   });
 });
@@ -255,22 +261,6 @@ router.post('/verListaUsuarios', function (req, res, next) {
   });
 });
 
-//ver un usuario
-router.post("/verUsuario", function (req, res, next) {
-  //Obtenemos el nombre de usuario y la contraseña para buscarlo en el sistema
-  let {
-    IdUsuario
-  } = req.body;
-  UsuarioDAO.obtenerUsuarioPorId(IdUsuario, (data) => {
-    let usuario = data;
-    console.log(usuario);
-    res.render('administracion/unosolo/verUnUsuario', {
-      usuario: usuario,
-      tipoMensaje: 0
-    });
-  });
-
-});
 //Fucion que permite hacer el laamado de logue del usuario
 router.post('/logueo', async function (req, res, next) {
   //Obtenemos el nombre de usuario y la contraseña para buscarlo en el sistema
@@ -320,75 +310,71 @@ router.post("/miPerfil", function (req, res, next) {
 
 });
 
-//guardar empresa
-router.post('/guardarEmpresa',function (req, res, next){
-  let{
+router.post('/guardarEmpresa', function (req, res, next) {
+  let {
     IdUsuario,
     IdEmpresa,
-    nombreEmpresa, 
-    domicilio, 
-    numeroInterior, 
-    numeroExterior, 
-    colonia, 
-    ciudad, 
-    estado, 
-    pais, 
-    CP, 
+    nombreEmpresa,
+    domicilio,
+    numeroInterior,
+    numeroExterior,
+    colonia,
+    ciudad,
+    estado,
+    pais,
+    CP,
     status
   } = req.body;
   console.log("Status desde el index" + status);
-  empresaDAO.guardarDatosEmpresa(IdEmpresa,nombreEmpresa, 
-    domicilio, 
-    numeroInterior, 
-    numeroExterior, 
-    colonia, 
-    ciudad, 
-    estado, 
-    pais, 
-    CP, 
-    status
-    ,(data)=>{
+  empresaDAO.guardarDatosEmpresa(IdEmpresa, nombreEmpresa,
+    domicilio,
+    numeroInterior,
+    numeroExterior,
+    colonia,
+    ciudad,
+    estado,
+    pais,
+    CP,
+    status, (data) => {
       let IdEmpresa = data.valor;
-      let tipoMensaje;
       if (data) {
         tipoMensaje = 1;
       } else {
         tipoMensaje = 2;
       }
-
       UsuarioDAO.obtenerUsuarioPorId(IdUsuario, (data) => {
         let usuario = data;
-        empresaDAO.obtenerEmpresaPorId(IdEmpresa,(data)=>{
+        empresaDAO.obtenerEmpresaPorId(IdEmpresa, (data) => {
           let empresa = data;
           console.log("empresa:", empresa)
           res.render('administracion/unosolo/verUnaEmpresa', {
             empresa: empresa,
-            usuario:usuario,
-            tipoMensaje: tipoMensaje
+            usuario: usuario,
+            tipoMensaje:tipoMensaje
           });
         });
       });
-           
+
     });
 });
 
-router.post('/nuevaEmpresa', function (req, res, next){
+router.post('/nuevaEmpresa', function (req, res, next) {
   let {
     IdUsuario
   } = req.body;
 
   let empresa = {
-    idEmpresa :'0',
-    nombreEmpresa : '', 
-    domicilio:'', 
-    numeroInterior:'', 
-    numeroExterior:'', 
-    colonia:'', 
-    ciudad:'', 
-    estado:'', 
-    pais:'', 
-    CP:'', 
-    status:true
+    idEmpresa: '0',
+    nombreEmpresa: '',
+    domicilio: '',
+    numeroInterior: '',
+    numeroExterior: '',
+    colonia: '',
+    ciudad: '',
+    estado: '',
+    pais: '',
+    CP: '',
+    status: true
   }
 
   UsuarioDAO.obtenerUsuarioPorId(IdUsuario, (data) => {
@@ -396,139 +382,13 @@ router.post('/nuevaEmpresa', function (req, res, next){
 
     res.render('administracion/unosolo/verUnaEmpresa', {
       empresa: empresa,
-      usuario:usuario,
-      tipoMensaje: 0
+      usuario: usuario
     });
 
   });
 
 });
 
-//guardar franquicia
-router.post('/guardarFranquicia',function (req, res, next){
-  let{
-    IdUsuario,
-    IdFranquicia,
-    nombreFranquicia, 
-    status
-  } = req.body;
-  console.log("Status desde el index" + status);
-  franquiciaDAO.guardarDatosFranquicia(IdFranquicia,nombreFranquicia,status,(data)=>{
-      let IdFranquicia = data.valor;
-
-      let tipoMensaje;
-      if (data) {
-        tipoMensaje = 1;
-      } else {
-        tipoMensaje = 2;
-      }
-
-      UsuarioDAO.obtenerUsuarioPorId(IdUsuario, (data) => {
-        let usuario = data;
-        franquiciaDAO.obtenerFranquiciaPorId(IdFranquicia,(data)=>{
-          let franquicia = data;
-          console.log("franquicia:", franquicia)
-          res.render('administracion/unosolo/verUnaFranquicia', {
-            franquicia: franquicia,
-            usuario:usuario,
-            tipoMensaje: tipoMensaje
-          });
-        });
-      });
-           
-    });
-});
-
-//nueva franquicia
-router.post('/nuevaFranquicia', function (req, res, next){
-  let {
-    IdUsuario
-  } = req.body;
-
-  let franquicia = {
-    idFranquicia :'0',
-    nombreFranquicia : '', 
-    status:true
-  }
-
-  UsuarioDAO.obtenerUsuarioPorId(IdUsuario, (data) => {
-    let usuario = data;
-
-    res.render('administracion/unosolo/verUnaFranquicia', {
-      franquicia: franquicia,
-      usuario:usuario,
-      tipoMensaje: 0
-    });
-
-  });
-
-});
-
-//guardar tipo unidad
-router.post('/guardarTipoUnidad',function (req, res, next){
-  let{
-    IdUsuario,
-    IdTipoUnidad,
-    nombreTipoUnidad, 
-    orden,
-    status
-  } = req.body;
-  console.log("Status desde el index" + status);
-
-  tipoUnidadDAO.guardarDatosTipoUnidad(IdTipoUnidad,nombreTipoUnidad,orden,status,(data)=>{
-    let IdTipoUnidad = data.valor;
-    let tipoMensaje;
-    if (data) {
-      tipoMensaje = 1;
-    } else {
-      tipoMensaje = 2;
-    }
-
-    console.log("mensaje: "+tipoMensaje)
-    UsuarioDAO.obtenerUsuarioPorId(IdUsuario, (data) => {
-      let usuario = data;
-      tipoUnidadDAO.obtenerTipoUnidadPorId(IdTipoUnidad,(data)=>{
-        let tipoUnidad = data;
-        console.log("tipo unidad:", tipoUnidad)
-        res.render('administracion/unosolo/verUnTipoUnidad', {
-          tipoUnidad: tipoUnidad,
-          usuario:usuario,
-          tipoMensaje: tipoMensaje
-        });
-      });
-    });
-         
-  });
-           
-});
-
-//nueva tipo unidad
-router.post('/nuevoTipoUnidad', function (req, res, next){
-  let {
-    IdUsuario
-  } = req.body;
-
-  let tipoUnidad = {
-    IdTipoUnidad :'0',
-    nombreTipo : '', 
-    orden : '',
-    status:true
-  }
-
-  UsuarioDAO.obtenerUsuarioPorId(IdUsuario, (data) => {
-    let usuario = data;
-
-    res.render('administracion/unosolo/verUnTipoUnidad', {
-      tipoUnidad: tipoUnidad,
-      usuario:usuario,
-      tipoMensaje: 0
-    });
-
-  });
-
-});
-
-//guardar centro de costo
 router.post('/guardarCentroCosto', function (req, res, next) {
   //console.log("Iniciando guardado");
   let {
@@ -563,7 +423,7 @@ router.post('/guardarCentroCosto', function (req, res, next) {
       } else {
         tipoMensaje = 2;
       }
-      console.log("respuesta"+tipoMensaje);
+      //console.log(respuesta);
       UsuarioDAO.obtenerUsuarioPorId(IdUsuario, (data) => {
         let usuario = data;
         //console.log(usuario);
@@ -651,19 +511,289 @@ router.post('/nuevoCentroCosto', function (req, res, next) {
   });
 });
 
+router.post('/guardarFranquicia', function (req, res, next) {
+  let {
+    IdUsuario,
+    IdFranquicia,
+    nombreFranquicia,
+    status
+  } = req.body;
+  console.log("Status desde el index" + status);
+  franquiciaDAO.guardarDatosFranquicia(IdFranquicia, nombreFranquicia, status, (data) => {
+    let IdFranquicia = data.valor;
+
+    let tipoMensaje;
+    if (data) {
+      tipoMensaje = 1;
+    } else {
+      tipoMensaje = 2;
+    }
+
+    UsuarioDAO.obtenerUsuarioPorId(IdUsuario, (data) => {
+      let usuario = data;
+      franquiciaDAO.obtenerFranquiciaPorId(IdFranquicia, (data) => {
+        let franquicia = data;
+        console.log("franquicia:", franquicia)
+        res.render('administracion/unosolo/verUnaFranquicia', {
+          franquicia: franquicia,
+          usuario: usuario,
+          tipoMensaje: tipoMensaje
+        });
+      });
+    });
+
+  });
+});
 
 
 
-/*Apartado para la generacion de reportes*/
-
-
-router.post('/reporteCentroCosto', function (req, res, next) {
+router.post('/nuevaFranquicia', function (req, res, next) {
   let {
     IdUsuario
   } = req.body;
 
+  let franquicia = {
+    idFranquicia: '0',
+    nombreFranquicia: '',
+    status: true
+  }
+
+  UsuarioDAO.obtenerUsuarioPorId(IdUsuario, (data) => {
+    let usuario = data;
+
+    res.render('administracion/unosolo/verUnaFranquicia', {
+      franquicia: franquicia,
+      usuario: usuario,
+      tipoMensaje: 0
+    });
+
+  });
+
+});
+
+router.post('/guardarTipoUnidad', function (req, res, next) {
+  let {
+    IdUsuario,
+    IdTipoUnidad,
+    nombreTipo,
+    orden,
+    status
+  } = req.body;
+  console.log("Status desde el index" + status);
+
+  tipoUnidadDAO.guardarDatosTipoUnidad(IdTipoUnidad, nombreTipo, orden, status, (data) => {
+    let IdTipoUnidad = data.valor;
+    let tipoMensaje;
+    if (data) {
+      tipoMensaje = 1;
+    } else {
+      tipoMensaje = 2;
+    }
+
+    console.log("mensaje: " + tipoMensaje)
+    UsuarioDAO.obtenerUsuarioPorId(IdUsuario, (data) => {
+      let usuario = data;
+      tipoUnidadDAO.obtenerTipoUnidadPorId(IdTipoUnidad, (data) => {
+        let tipoUnidad = data;
+        console.log("tipo unidad:", tipoUnidad)
+        res.render('administracion/unosolo/verUnTipoUnidad', {
+          tipoUnidad: tipoUnidad,
+          usuario: usuario,
+          tipoMensaje: tipoMensaje
+        });
+      });
+    });
+
+  });
+
+});
+
+router.post('/nuevoTipoUnidad', function (req, res, next) {
+  let {
+    IdUsuario
+  } = req.body;
+
+  let tipoUnidad = {
+    IdTipoUnidad: '0',
+    nombreTipo: '',
+    orden: '',
+    status: true
+  }
+
+  UsuarioDAO.obtenerUsuarioPorId(IdUsuario, (data) => {
+    let usuario = data;
+
+    res.render('administracion/unosolo/verUnTipoUnidad', {
+      tipoUnidad: tipoUnidad,
+      usuario: usuario,
+      tipoMensaje: 0
+    });
+
+  });
+
+});
+
+router.post("/verUsuario", function (req, res, next) {
+  //Obtenemos el nombre de usuario y la contraseña para buscarlo en el sistema
+  let {
+    IdUsuarioLista,
+    IdUsuario
+  } = req.body;
+  console.log('Pss')
+  UsuarioDAO.obtenerUsuarioPorId(IdUsuario, (data) => {
+    let usuario = data;
+    UsuarioDAO.obtenerUsuarioPorId(IdUsuarioLista, (data) => {
+      usuarioVer = data;
+      console.log(usuario);
+      res.render('administracion/unosolo/verUnUsuario', {
+        usuario: usuario,
+        usuarioVer: usuarioVer,
+        tipoMensaje: 0
+      });
+    });
+
+  });
+
+});
+
+
+router.post('/guardarUsuario', function (req, res, next) {
+  let = {
+    idtemp,
+    IdUsuarioVer,
+    nombreCompleto,
+    username,
+    mail,
+    telefono,
+    direccion,
+    esAdministrador,
+    status
+  } = req.body;
+
+  UsuarioDAO.guardarDatosUsuario(IdUsuarioVer, nombreCompleto, username,'', mail, telefono, direccion, esAdministrador, status, (data) => {
+    let IdUsuariover = data.valor;
+    console.log(IdUsuariover);
+    UsuarioDAO.obtenerUsuarioPorId(IdUsuariover, (data) => {
+      let usuarioVer = data;
+      UsuarioDAO.obtenerUsuarioPorId(idtemp, (data) => {
+        let usuario = data;
+        res.render('administracion/unosolo/verUnUsuario', {
+          usuario: usuario,
+          usuarioVer: usuarioVer,
+          tipoMensaje: 1
+        });
+      });
+    });
+  });
+});
+
+
+router.post('/nuevoUsuario', function (req, res, next) {
+  let = {
+    IdUsuario
+  } = req.body;
+
+  let nuevoUsuario = {
+    IdUsuario: 0,
+    nombreCompleto: ' ',
+    username: ' ',
+    pass: ' ',
+    mail: '',
+    telefono: '',
+    direccion: '',
+    esAdministrador: false,
+    status: true
+  };
+
+  console.log(nuevoUsuario);
+
+  UsuarioDAO.obtenerUsuarioPorId(IdUsuario, (data => {
+    usuario = data;
+    res.render('administracion/unosolo/nuevoUsuario', {
+      usuario: usuario,
+      usuarioVer: nuevoUsuario,
+      tipoMensaje: 0
+    });
+  }));
+});
+
+router.post('/guardarNuevoUsuario', function (req, res, next) {
+  let = {
+    idtemp,
+    IdUsuarioVer,
+    confirmPass,
+    pass,
+    nombreCompleto,
+    username,
+    mail,
+    telefono,
+    direccion,
+    esAdministrador,
+    status
+  } = req.body;
+
+
+  if (confirmPass === pass) {
+    console.log('Si pasa')
+    let passwordincriptado = md5(pass);
+    UsuarioDAO.guardarDatosUsuario(IdUsuarioVer, nombreCompleto, username,passwordincriptado, mail, telefono, direccion, esAdministrador, status, (data) => {
+      let IdUsuariover = data.valor;
+      console.log(IdUsuariover);
+      UsuarioDAO.obtenerUsuarioPorId(IdUsuariover, (data) => {
+        let usuarioVer = data;
+        UsuarioDAO.obtenerUsuarioPorId(idtemp, (data) => {
+          let usuario = data;
+          res.render('administracion/unosolo/verUnUsuario', {
+            usuario: usuario,
+            usuarioVer: usuarioVer,
+            tipoMensaje: 1
+          });
+        });
+      });
+    });
+
+  } else {
+    console.log('no pasa');
+    let nuevoUsuario = {
+      IdUsuario: 0,
+      nombreCompleto: ' ',
+      username: ' ',
+      pass: ' ',
+      mail: '',
+      telefono: '',
+      direccion: '',
+      esAdministrador: false,
+      status: true
+    };
+    UsuarioDAO.obtenerUsuarioPorId(idtemp, (data) => {
+      let usuario = data;
+      res.render('administracion/unosolo/nuevoUsuario', {
+        usuario: usuario,
+        usuarioVer: nuevoUsuario,
+        tipoMensaje: 3
+      });
+    });
+
+  }
+
+
+
+});
+
+
+/*Apartado para la generacion de reportes*/
+
+/*Esta ruta genera el reporte que contiene a todos los centros de costos 
+con su informacion, tambien idica quien elabora el reporte fecha y hora*/
+router.post('/reporteCentroCosto', function (req, res, next) {
+  //capturamos el id del usuario para mostrar en el reporte
+  let {
+    IdUsuario
+  } = req.body;
+  //Obtenemos todos todas las unidades
   CCDAO.obtenerTodasUnidades((data) => {
     let centroCosto = data;
+    //Obtenemos los datos del usuario atraves de su Id
     UsuarioDAO.obtenerUsuarioPorId(IdUsuario, (data) => {
       let usuario = data;
       var dateTime = require('node-datetime');
@@ -671,6 +801,7 @@ router.post('/reporteCentroCosto', function (req, res, next) {
       var fecha = dt.format('Y-m-d');
       var hora = dt.format('H:M:S');
       console.log(fecha + ' las ' + hora);
+      //Renderizamos la vista del reporte
       res.render('administracion/reportes/reporteCentrosCosto', {
         centroCosto: centroCosto,
         usuario: usuario,
@@ -678,15 +809,128 @@ router.post('/reporteCentroCosto', function (req, res, next) {
         hora: hora
       });
     })
+  });
+});
+
+/*Esta ruta genera el reporte que contiene a todas las empresas
+con su informacion, tambien idica quien elabora el reporte fecha y hora*/
+router.post('/reporteEmpresas', function (req, res, next) {
+  //capturamos el id del usuario para mostrar en el reporte
+  let {
+    IdUsuario
+  } = req.body;
+  //Obtenemos todos todas las empresas
+  empresaDAO.obtenerTodasEmpresas((data) => {
+    let listadoEmpresas = data;
+    //Obtenemos los datos del usuario atraves de su Id
+    UsuarioDAO.obtenerUsuarioPorId(IdUsuario, (data) => {
+      let usuario = data;
+      var dateTime = require('node-datetime');
+      var dt = dateTime.create();
+      var fecha = dt.format('Y-m-d');
+      var hora = dt.format('H:M:S');
+      console.log(fecha + ' las ' + hora);
+      //Renderizamos la vista del reporte
+      res.render('administracion/reportes/reporteEmpresas', {
+        listadoEmpresas: listadoEmpresas,
+        usuario: usuario,
+        fecha: fecha,
+        hora: hora
+      });
+    })
 
   });
-
-
-
-
-
-
 });
+
+
+
+/*Esta ruta genera el reporte que contiene a todos los tipo de unidad
+con su informacion, tambien idica quien elabora el reporte fecha y hora*/
+router.post('/reporteTipoUnidad', function (req, res, next) {
+  //capturamos el id del usuario para mostrar en el reporte
+  let {
+    IdUsuario
+  } = req.body;
+  //Obtenemos todos todas las empresas
+  tipoUnidadDAO.obtenerTodosTipoUnidad((data) => {
+    let listadoTipoUnidad = data;
+    //Obtenemos los datos del usuario atraves de su Id
+    UsuarioDAO.obtenerUsuarioPorId(IdUsuario, (data) => {
+      let usuario = data;
+      var dateTime = require('node-datetime');
+      var dt = dateTime.create();
+      var fecha = dt.format('Y-m-d');
+      var hora = dt.format('H:M:S');
+      console.log(fecha + ' las ' + hora);
+      //Renderizamos la vista del report
+      res.render('administracion/reportes/reporteTiposUnidad', {
+        listadoTipoUnidad: listadoTipoUnidad,
+        usuario: usuario,
+        fecha: fecha,
+        hora: hora
+      });
+    })
+  });
+});
+
+/*Esta ruta genera el reporte que contiene a todas la franquicias
+con su informacion, tambien idica quien elabora el reporte fecha y hora*/
+router.post('/reporteFranquicia', function (req, res, next) {
+  //capturamos el id del usuario para mostrar en el reporte
+  let {
+    IdUsuario
+  } = req.body;
+  //Obtenemos todos todas la franquicias
+  franquiciaDAO.obtenerTodasFranquicias((data) => {
+    let listadoFranquicias = data;
+    //Obtenemos los datos del usuario atraves de su Id
+    UsuarioDAO.obtenerUsuarioPorId(IdUsuario, (data) => {
+      let usuario = data;
+      var dateTime = require('node-datetime');
+      var dt = dateTime.create();
+      var fecha = dt.format('Y-m-d');
+      var hora = dt.format('H:M:S');
+      console.log(fecha + ' las ' + hora);
+      //Renderizamos la vista del report
+      res.render('administracion/reportes/reporteFranquicias', {
+        listadoFranquicias: listadoFranquicias,
+        usuario: usuario,
+        fecha: fecha,
+        hora: hora
+      });
+    })
+  });
+});
+
+/*Esta ruta genera el reporte que contiene a todos los usuarios
+con su informacion, tambien idica quien elabora el reporte fecha y hora*/
+router.post('/reporteUsuarios', function (req, res, next) {
+  //capturamos el id del usuario para mostrar en el reporte
+  let {
+    IdUsuario
+  } = req.body;
+  //Obtenemos todos todos los usuarios
+  UsuarioDAO.obtenerTodosUsuarios((data) => {
+    let listadoUsuarios = data;
+    //Obtenemos los datos del usuario atraves de su Id
+    UsuarioDAO.obtenerUsuarioPorId(IdUsuario, (data) => {
+      let usuario = data;
+      var dateTime = require('node-datetime');
+      var dt = dateTime.create();
+      var fecha = dt.format('Y-m-d');
+      var hora = dt.format('H:M:S');
+      console.log(fecha + ' las ' + hora);
+      //Renderizamos la vista del report
+      res.render('administracion/reportes/reporteUsuarios', {
+        listadoUsuarios: listadoUsuarios,
+        usuario: usuario,
+        fecha: fecha,
+        hora: hora
+      });
+    })
+  });
+});
+
 
 
 module.exports = router;

@@ -3,7 +3,7 @@ html(lang='es')
   head
     meta(charset='UTF-8')
     title Centros de Costo
-    link(rel='stylesheet' href='/stylesheets/reportes/reportes.css')
+    link(rel='stylesheet' href='/stylesheets/reportes/reporteEmpresas.css')
   body
 
 
@@ -18,7 +18,7 @@ html(lang='es')
 
       br
       
-      label(class="lblTitulo" ) Centros de Costo en el Sistema
+      label(class="lblTitulo" ) Empresas en el Sistema
 
       br
 
@@ -26,47 +26,35 @@ html(lang='es')
         //caption Statement Summary
         thead
           tr
-            th UDN
             th Nombre
-            th Empresa
-            th Franquicia
-            th Tipo unidad
             th Status
-            th Gerente 
-            th Sub Gerente 
-            th Telefono 
-            th(class="mailGerente") Email Gerente
-            th(class="calle")  Calle
-            th Numero Interior 
-            th Numero Exteriro 
-            th Colonia 
+            th Domicilio
+            th Numero Interior
+            th Numero Exterior
+            th Colonia
             th Ciudad 
-            th Estado 
-            th Codigo Postal
+            th Estado                     
+            th Pais
+            th Codigo Postal 
+            //th Codigo Postal 
 
         tbody
-        each cc in centroCosto
+        each cc in listadoEmpresas
           tr
-            td= cc.UDN   
-            td= cc.nombreCentroCosto
-            td= cc.nombreEmpresa
-            td= cc.nombreFranquicia
-            td= cc.nombreTipo
+            td= cc.nombreEmpresa   
             if cc.status == true
               td Activo 
             else  
               td Inactivo
-            td= cc.nombreGerente
-            td= cc.nombresubGerente
-            td= cc.telefono
-            td= cc.mailGerente
-            td= cc.direccion
+            td= cc.domicilio
             td= cc.numeroInterior
             td= cc.numeroExterior
             td= cc.colonia
-            td= cc.ciudad
+            td= cc.ciudad            
             td= cc.estado
+            td= cc.pais
             td= cc.CP
+
   
 
 
