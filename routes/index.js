@@ -10,7 +10,19 @@ var md5 = require("md5");
 const {
   Router
 } = require('express');
-//var request = require('re');
+
+//Vista del acerca de (about)
+router.post('/about',function (req, res, next){
+  let {
+    IdUsuario
+  } = req.body;
+  UsuarioDAO.obtenerUsuarioPorId(IdUsuario , (data)=>{
+    let usuario = data;
+    res.render('about',{
+      usuario : usuario
+    });
+  });
+});
 
 
 //Esta funcion te manda a la pagina de logue 
@@ -692,7 +704,6 @@ router.post('/nuevoUsuario', function (req, res, next) {
   let = {
     IdUsuario
   } = req.body;
-
   let nuevoUsuario = {
     IdUsuario: 0,
     nombreCompleto: ' ',
@@ -770,6 +781,65 @@ router.post('/guardarNuevoUsuario', function (req, res, next) {
       res.render('administracion/unosolo/nuevoUsuario', {
         usuario: usuario,
         usuarioVer: nuevoUsuario,
+        tipoMensaje: 3
+      });
+    });
+
+  }
+
+
+
+});
+
+
+router.post('/cambiarPass', function (req, res, next){
+  let = {
+    IdUsuario
+  } = req.body;
+
+  UsuarioDAO.obtenerUsuarioPorId(IdUsuario , (data)=> {
+    let usuario = data;
+    res.render('cambiarPass', {
+      usuario : usuario
+    })
+  })
+
+});
+
+router.post('/guardarNuevoPass', function (req, res, next) {
+  let = {
+    idtemp,
+    IdUsuarioVer,
+    confirmPass,
+    pass,
+  } = req.body;
+
+  console.log(pass+" ==? " +confirmPass);
+  if (confirmPass === pass) {
+    console.log('Si pasa')
+    let passwordincriptado = md5(pass);
+    UsuarioDAO.usuarioPass_put(IdUsuarioVer , passwordincriptado , (data) => {
+      let IdUsuariover = data.valor;
+      console.log(IdUsuariover);
+      UsuarioDAO.obtenerUsuarioPorId(IdUsuariover, (data) => {
+        let usuarioVer = data;
+        UsuarioDAO.obtenerUsuarioPorId(idtemp, (data) => {
+          let usuario = data;
+          res.render('cambiarPass', {
+            usuario: usuario,
+            usuarioVer: usuarioVer,
+            tipoMensaje: 1
+          });
+        });
+      });
+    });
+
+  } else {
+    console.log('no pasa');
+    UsuarioDAO.obtenerUsuarioPorId(idtemp, (data) => {
+      let usuario = data;
+      res.render('cambiarPass', {
+        usuario: usuario,
         tipoMensaje: 3
       });
     });

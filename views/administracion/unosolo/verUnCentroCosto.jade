@@ -21,7 +21,7 @@ html(lang='es')
               input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
               button(type="submit" class="btnMenu") Mi perfil
           a 
-            form(action="enConstruccion"  method='POST')
+            form(action="about"  method='POST')
               input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
               button(type="submit" class="btnMenu") Acerca de          
           a
@@ -221,3 +221,10 @@ form(action="guardarCentroCosto" method='POST' class="abajo")
         form(action="nuevoCentroCosto" method='POST')    
           input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")                     
           input(type="submit", value="Nuevo" class ="brnNuevo")
+.container3
+  .row
+    .input-group    
+      if usuario.esAdministrador == true 
+        form(action="verListaCentrosCosto" method='POST')    
+          input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")                     
+          input(type="submit", value="Cancelar" class ="btnCancelar")          

@@ -21,7 +21,7 @@ html(lang='es')
               input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
               button(type="submit" class="btnMenu") Mi perfil
           a 
-            form(action="enConstruccion"  method='POST')
+            form(action="about"  method='POST')
               input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
               button(type="submit" class="btnMenu") Acerca de          
           a
@@ -124,10 +124,10 @@ html(lang='es')
 .container3
   .row
     .input-group    
-      form(action="nuevoUsuario" method='POST')    
+      form(action="cambiarPass" method='POST')    
         if usuario.esAdministrador == true
           input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")                     
-          input(type="submit", value="Nuevo" class ="brnNuevo")
+          input(type="submit", value="Cambiar Contraseña" class ="btnCancelar")
 
 
 

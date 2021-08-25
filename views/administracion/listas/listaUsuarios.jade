@@ -4,7 +4,7 @@ head
     meta(http-equiv="X-UA-Compatible", content="IE=edge")
     link(rel="stylesheet", href="/stylesheets/main.css")
     link(rel="stylesheet", href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css")
-    title Pafina Pincipal
+    title Usuarios
 
   body
     header.header
@@ -23,7 +23,7 @@ head
               input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
               button(type="submit" class="btnMenu") Mi perfil
           a 
-            form(action="enConstruccion"  method='POST')
+            form(action="about"  method='POST')
               input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
               button(type="submit" class="btnMenu") Acerca de          
           a
@@ -66,13 +66,17 @@ head
       form.col-12(action="reporteUsuarios"  method='POST' name="Id")
         input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
         button(type="submit" class="btnReporte" ) Generar reporte
+
+      form.col-12(action="nuevoUsuario"  method='POST' name="Id")
+        input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
+        button(type="submit" class="bntNuevoLista" ) Agregar Usuario
       br
       br
       table
         thead(class="p")
           
           tr
-            th Id
+            //th Id
             th Nombre        
             th Telefono
             th Mail
@@ -84,7 +88,7 @@ head
         tbody        
         each lu in listaUsuarios      
           tr
-            td= lu.IdUsuario
+            //td= lu.IdUsuario
             td= lu.nombreCompleto           
             td= lu.telefono
             td= lu.mail

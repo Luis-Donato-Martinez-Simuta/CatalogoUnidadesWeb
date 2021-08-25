@@ -2,7 +2,7 @@ doctype html
 html(lang='es')
   head
     meta(charset='UTF-8')
-    title Centros de Costo
+    title Reporte Tipo Unidad
     link(rel='stylesheet' href='/stylesheets/reportes/reporteEmpresas.css')
   body
 
@@ -25,14 +25,14 @@ html(lang='es')
       table
         thead      
           tr
-            th Id
+            //th Id
             th Nombre        
             th Status
           
         tbody        
         each tu in listaTipoUnidad      
           tr
-            td= tu.IdTipoUnidad  
+            //td= tu.IdTipoUnidad  
             td= tu.nombreTipo 
             if tu.status == true         
               td Activo     

@@ -4,7 +4,7 @@ head
     meta(http-equiv="X-UA-Compatible", content="IE=edge")
     link(rel="stylesheet", href="/stylesheets/main.css")
     link(rel="stylesheet", href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css")
-    title Pafina Pincipal
+    title Tipos de Unidad
 
   body
     header.header
@@ -23,7 +23,7 @@ head
               input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
               button(type="submit" class="btnMenu") Mi perfil
           a 
-            form(action="enConstruccion"  method='POST')
+            form(action="about"  method='POST')
               input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
               button(type="submit" class="btnMenu") Acerca de          
           a
@@ -69,20 +69,23 @@ head
         input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
         button(type="submit" class="btnReporte" ) Generar reporte
 
+      form.col-12(action="nuevoTipoUnidad"  method='POST' name="Id")
+        input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
+        button(type="submit" class="bntNuevoLista" ) Agregar Tipo de Unidad
       br
       br
 
       table
         thead      
           tr
-            th Id
+            //th Id
             th Nombre        
             th Status
             th Accion               
         tbody        
         each tu in listaTipoUnidad      
           tr
-            td= tu.IdTipoUnidad  
+            //td= tu.IdTipoUnidad  
             td= tu.nombreTipo 
             if tu.status == true         
               td Activo     

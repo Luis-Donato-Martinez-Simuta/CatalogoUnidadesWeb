@@ -2,7 +2,7 @@ doctype html
 html(lang='es')
   head
     meta(charset='UTF-8')
-    title Empresa
+    title Cambiar Contraseña
     link(rel='stylesheet' href='/stylesheets/unCentroCosto.css')
   body
     header.header
@@ -57,103 +57,59 @@ html(lang='es')
   
         label(for='btn-menu') ✖️
 
-
+// .h3 Comienza tu prueba gratuita de 30 días ya mismo
+// p o puedes comprar tu plan en Softlife ahora mismo
 
 .container2
-  form(action="guardarEmpresa" method='POST')
-    input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
-    input(type='hidden' value= empresa.idEmpresa   name="IdEmpresa") 
+  form(action="guardarNuevoPass" method='POST')
+    input(type='hidden' value= usuario.IdUsuario   name="idtemp")
+    input(type='hidden' value= usuario.IdUsuario   name="IdUsuarioVer") 
     if tipoMensaje == 3
-      label(class="lblError") Las contraseñas con coinciden
-
+      label(class="lblError") Las contraseñas no coinciden
     if tipoMensaje == 1 
       label(class="ok") Datos guardados correctamento
     else  
       if tipoMensaje == 2
         label(class="lblError") Algo salio mal, los datos no se guardaron    
-    h3 Informacion de la Empresa
+    h3 Mi Informacion
     .row
       .col-half
-        h4 Nombre Empresa
+        h4 Nombre completo
           .input-group.input-group-icon
-            input(type="text" , readonly='readonly',name='nombreEmpresa', value = empresa.nombreEmpresa , placeholder="Nombre Empresa")
+            input(type="text", name='nombreCompleto', readonly='readonly', value = usuario.nombreCompleto , placeholder="Nombre completo")
             .input-icon
               i.fa.fa-user
-        h4 Calle
+          h4 Nueva Contraseña
+          .input-group.input-group-icon
+            input(type="password",name='pass' , value = usuario.username , placeholder="Nueva Contraseña")
+            .input-icon
+              i.fa.fa-envelope
+      .col-half
+        h4 Nombre Usuario
         .input-group.input-group-icon
-          input(type="text", readonly='readonly', name='domicilio', value = empresa.domicilio,  placeholder="Domicilio")
+          input(type="text", name='nombreUsuario', readonly='readonly' , value = usuario.username,  placeholder="Nombre Usuario")
           .input-icon
             i.fa.fa-key
-        h4 Numero Exterior
-          .input-group.input-group-icon
-            input(type="text",readonly='readonly', name='numeroExterior', value = empresa.numeroExterior , placeholder="Numero Exterior")
-            .input-icon
-              i.fa.fa-envelope
-        h4 Ciudad
-          .input-group.input-group-icon
-            input(type="text",readonly='readonly', name='ciudad' value = empresa.ciudad , placeholder="Ciudad")
-            .input-icon
-              i.fa.fa-envelope
-        
-        h4 Pais
+        h4 Confirmar Contraseña Nueva
         .input-group.input-group-icon
-          input(type="text", name='pais', readonly='readonly', value = empresa.pais , placeholder="Pais")
+          input(type="password", name='confirmPass', value = '',  placeholder="Confirmar Contraseña Nueva")
           .input-icon
-            i.fa.fa-envelope
- 
-      .col-half
-        h4 Status
-        .input-group 
-          select(name = "status")           
-            if empresa.status == true
-              option(class="opt" value = '1') Activo
-              if usuario.esAdministrador == true
-                option(class="opt" value ='0') Inactivo
-            else 
-              option(class="opt" value = '0') Inactivo 
-              if esAdministrador.status == true
-                option(class="opt" value = '1') Activo
-          
+            i.fa.fa-key   
 
-        h4 Numero Interior
-        .input-group.input-group-icon
-          input(type="text", name='numeroInterior', value = empresa.numeroInterior , placeholder="Numero Interior")
-          .input-icon
-            i.fa.fa-envelope
-        h4 Colonia
-          .input-group.input-group-icon
-            input(type="text", name='colonia', value = empresa.colonia , placeholder="Colonia")
-            .input-icon
-              i.fa.fa-envelope
-        h4 Estado
-          .input-group.input-group-icon
-            input(type="text", name='estado', value = empresa.estado , placeholder="Estado")
-            .input-icon
-              i.fa.fa-envelope
-        h4 CP
-          .input-group.input-group-icon
-            input(type="text", name='CP', value = empresa.CP , placeholder="Codigo Postal")
-            .input-icon
-              i.fa.fa-envelope
-    .row
-      .input-group    
-        //form(action="guardarEmpresa" method='POST')    
-        //input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
-        if usuario.esAdministrador == true                    
+                           
+
+
+      .row
+        .input-group                                                
           input(type="submit", value="Guardar" class ="brnGuardar")
 
 .container3
   .row
     .input-group    
-      form(action="nuevaEmpresa" method='POST')    
+      form(action="miPerfil" method='POST')    
         if usuario.esAdministrador == true
           input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")                     
-          input(type="submit", value="Nuevo" class ="brnNuevo")
+          input(type="submit", value="Cancelar" class ="btnCancelar")
 
-.container3
-  .row
-    .input-group    
-      if usuario.esAdministrador == true 
-        form(action="verListaEmpresas" method='POST')    
-          input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")                     
-          input(type="submit", value="Cancelar" class ="btnCancelar")          
+
+
