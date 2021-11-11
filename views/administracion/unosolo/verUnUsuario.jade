@@ -50,6 +50,18 @@ html(lang='es')
             form(action="verListaCentrosCosto"  method='POST')
               input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
               button(type="submit" class="btnMenu") Centros de Costo
+          a 
+            form(action="verListaContactos"  method='POST')
+              input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
+              button(type="submit" class="btnMenu") Contactos     
+          a 
+            form(action="verListaOficinas"  method='POST')
+              input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
+              button(type="submit" class="btnMenu") Oficinas   
+          a 
+            form(action="verListaPuestos"  method='POST')
+              input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
+              button(type="submit" class="btnMenu") Puestos                             
           if usuario.tipoUsuario == 1          
             a 
               form(action="verListaUsuarios"  method='POST')
@@ -60,7 +72,6 @@ html(lang='es')
 
 // .h3 Comienza tu prueba gratuita de 30 días ya mismo
 // p o puedes comprar tu plan en Softlife ahora mismo
-
 .container2
   form(action="guardarUsuario" method='POST')
     input(type='hidden' value= usuario.IdUsuario   name="idtemp") 
@@ -73,28 +84,39 @@ html(lang='es')
         label(class="lblError") Algo salio mal, los datos no se guardaron
     h3 Informacion del Usuario 
     .row
-      .col-half
-        h4 Nombre completo
+      h4 Nombre completo
           .input-group.input-group-icon
-            input(type="text",name='nombreCompleto', value = usuarioVer.nombreCompleto , placeholder="Nombre completo")
+            input(type="text",name='nombreCompleto', value = usuarioVer.nombreCompleto , placeholder="Nombre completo", required)
             .input-icon
               i.fa.fa-user
-          h4 Nombre de usuario
+      .col-half
+      
+        h4 Nombre de usuario
+        .input-group.input-group-icon
+          input(type="text",name='username',  value = usuarioVer.username , placeholder="Nombre de usuario", required)
+          .input-icon
+            i.fa.fa-envelope
+        h4 Email 
           .input-group.input-group-icon
-            input(type="username",name='username',  value = usuarioVer.username , placeholder="Nombre de usuario")
+            if tipoMensaje == 10              
+              input(type = "text", pattern="[A-Za-z0-9_-]*", name='mail', value = errorMail,  placeholder="Email", class="email1")
+              input(type="text",name='dominio', value = '@dominosgda.com',  placeholder="Email", class="email", readonly)               
+            else                         
+              input(type="text",pattern="[A-Za-z0-9_-]*", name='mail', value = usuarioVer.mail,  placeholder="Email", class="email1")
+              input(type="text",name='dominio', value = '@dominosgda.com',  placeholder="Email", class="email", readonly)  
             .input-icon
-              i.fa.fa-envelope
+              i.fa.fa-key 
       .col-half
         h4 Telefono
         .input-group.input-group-icon
           input(type="text",name='telefono',  value = usuarioVer.telefono,  placeholder="Telefono")
           .input-icon
             i.fa.fa-key
-        h4 Email 
+        h4 Contraseña email 
         .input-group.input-group-icon
-          input(type="email",name='mail',  value = usuarioVer.mail,  placeholder="Email")
+          input(type="password",name='passMail',  value = usuarioVer.passMail,  placeholder="Contraseña email")
           .input-icon
-            i.fa.fa-key   
+            i.fa.fa-key 
       h4 Direccion 
       .input-group.input-group-icon
         input(type="text",name='direccion',  value = usuarioVer.direccion,  placeholder="Direccion")
@@ -168,4 +190,3 @@ html(lang='es')
       form(action="verListausuarios" method='POST')    
         input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")                     
         input(type="submit", value="Cancelar" class ="btnCancelar")    
-          

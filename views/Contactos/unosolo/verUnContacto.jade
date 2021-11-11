@@ -1,0 +1,231 @@
+doctype html
+html(lang='es')
+  head
+    meta(charset='UTF-8')
+    title Contactos
+    link(rel='stylesheet' href='/stylesheets/genericoUnoSolo.css')
+  body
+    header.header
+      .container
+        .btn-menu
+          label(for='btn-menu') ☰
+        .logo
+          h1 Administrar
+        nav.menu
+          a 
+            form(action="verListaCentrosCosto"  method='POST')
+              input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
+              button(type="submit" class="btnMenu") Inicio
+          a
+            form(action="miPerfil"  method='POST')
+              input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
+              button(type="submit" class="btnMenu") Mi perfil
+          a 
+            form(action="about"  method='POST')
+              input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
+              button(type="submit" class="btnMenu") Acerca de          
+          a          
+            form(action="irLogin"  method='GET')
+              input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
+              button(type="submit" class="btnMenu") LogOut
+    .capa
+    // -------------
+    input#btn-menu(type='checkbox')
+    .container-menu
+      .cont-menu
+        nav
+          a
+            form(action="verListaEmpresas"  method='POST')
+              input(type='hidden' value= usuario.IdUsuario  name="IdUsuario")
+              button(type="submit" class="btnMenu") Empresas
+          a 
+            form(action="verListaFranquicias"  method='POST')
+              input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
+              button(type="submit" class="btnMenu") Franquicias
+          a 
+            form(action="verListaTipoUnidad"  method='POST')
+              input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
+              button(type="submit" class="btnMenu") Tipos de Unidades
+          a 
+            form(action="verListaCentrosCosto"  method='POST')
+              input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
+              button(type="submit" class="btnMenu") Centros de Costo
+          a 
+              form(action="verListaContactos"  method='POST')
+                input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
+                button(type="submit" class="btnMenu") Contactos
+          a 
+            form(action="verListaOficinas"  method='POST')
+              input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
+              button(type="submit" class="btnMenu") Oficinas     
+          a 
+            form(action="verListaPuestos"  method='POST')
+              input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
+              button(type="submit" class="btnMenu") Puestos                                  
+          if usuario.tipoUsuario == 1          
+            a 
+              form(action="verListaUsuarios"  method='POST')
+                input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
+                button(type="submit" class="btnMenu") Usuarios
+  
+        label(for='btn-menu') ✖️
+
+
+.container2
+  form(action="guardarContacto" method='POST')
+    input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
+    input(type='hidden' value= contacto.IdContacto   name="IdContacto") 
+    if esNumero == false 
+      label(class="lblError") Numero de telefono invalido
+      br
+    if tipoMensaje == 3
+      label(class="lblError") Las contraseñas con coinciden
+    if tipoMensaje == 10
+        label(class="lblError") Ese nombre de correo electronico no es valido '#{errorMail}'
+
+    if tipoMensaje == 1 
+      label(class="ok") Datos guardados correctamente
+    if tipoMensaje == 4
+      label(class="ok") El contacto se ha eliminado      
+    else  
+      if tipoMensaje == 2
+        label(class="lblError") Algo salio mal, los datos no se guardaron    
+    if tieneCorreo == false
+      label(class="lblAdvertencia") No podras mandar correo hasta que cargues 
+      br
+      label(class="lblAdvertencia") tu usuario y contraseña de web mail
+    h3 Informacion del Contacto
+    .row
+      .col-half
+      
+        h4 Nombre Contacto
+          .input-group.input-group-icon
+            input(type="text" , name='nombreContacto', value = contacto.nombreContacto, placeholder="Nombre Contacto", required)
+            .input-icon
+              i.fa.fa-user
+        h4 Oficina
+        .input-group 
+          select(name="IdOficina")
+            if contacto.IdContacto == 0
+              //option(class="opt" value = contacto.idOficina) #{contacto.nombreOficina} 
+              each o in listaOficinas 
+                if o.status == true
+                  option(class="opt" value = o.IdOficina) #{o.nombreOficina}
+            if contacto.IdContacto > 0  
+              option(class="opt" value = contacto.IdOficina) #{contacto.nombreOficina}
+              each o in listaOficinas
+                if o.status == true
+                  option(class="opt" value = o.IdOficina) #{o.nombreOficina}
+            
+            
+        h4 Ext Telefono
+        .input-group.input-group-icon
+          input(type="text", name='extTelefono', value = contacto.extTelefono,  placeholder="ext Telefono")
+          .input-icon
+            i.fa.fa-key
+        h4 Mail
+        .input-group.input-group-icon
+            if tipoMensaje == 10              
+              input(type="text", pattern="[A-Za-z0-9_-]*", name='mail', value = errorMail,  placeholder="Email", class="email1")
+              input(type="text",name='dominio', value = '@dominosgda.com',  placeholder="Email", class="email", readonly)               
+            else                         
+              input(type="text", pattern="[A-Za-z0-9_-]*",name='mail', value = contacto.mail,  placeholder="Email", class="email1")
+              input(type="text", name='dominio', value = '@dominosgda.com',  placeholder="Email", class="email", readonly) 
+          .input-icon
+            i.fa.fa-key
+        
+      .col-half
+        h4 Telefono Oficina (Max 10 digitos)
+        .input-group.input-group-icon
+          input(type="tel", pattern="[0-9]{10}", name='telefonoOficina', value = contacto.telefonoOficina, placeholder="Telefono")
+          .input-icon
+            i.fa.fa-key
+        h4 Puesto
+        .input-group 
+          select(name="IdPuesto")
+            if contacto.IdContacto == 0
+              each p in listaPuestos
+                if p.status == true
+                  option(class="opt" value = p.IdPuesto) #{p.nombrePuesto} 
+            if contacto.IdContacto > 0
+              
+              option(class="opt" value = contacto.IdPuesto) #{contacto.nombrePuesto} 
+              each p in listaPuestos
+                if p.status == true
+                  option(class="opt" value = p.IdPuesto) #{p.nombrePuesto}    
+        h4 Celular (Max 10 digitos)
+        .input-group.input-group-icon
+          input(type="tel", pattern="[0-9]{10}",name='celular', value = contacto.celular, placeholder="Celular")
+          .input-icon
+            i.fa.fa-key
+        h4 Cumpleaños
+        .input-group.input-group-icon
+          input(type="text", name='cumpleanos',  value = contacto.cumpleanos, placeholder="Cumpleaños")
+          .input-icon
+            i.fa.fa-key
+      
+      h4 ¿Eliminar contacto?
+        .input-group 
+          select(name="esVisible")
+            if contacto.esVisible == 1
+              option(class="opt" value = '1') NO
+              option(class="opt" value ='0') SI
+            else 
+              option(class="opt" value = '0') SI
+              option(class="opt" value = '1') NO
+        
+
+    //guardar esto falta 
+    .row
+      .input-group    
+        //form(action="guardarDatosContacto" method='POST')    
+        //input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
+        if usuario.tipoUsuario == 1 || agregar == 1            
+          input(type="submit", value="Guardar" class ="brnGuardar")
+
+.container3
+  .row
+    .input-group    
+      form(action="nuevoContacto" method='POST')    
+        if usuario.tipoUsuario == 1 || usuario.tipoUsuario == 2 
+          input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")   
+          input(type='hidden' value= 1   name="agregar")                  
+          input(type="submit", value="Nuevo" class ="brnNuevo")
+
+
+.container3
+  
+  if contacto.telefonoOficina != ""
+    .col-half
+      .input-group                    
+        input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")   
+        div(class="div")
+          a(href="tel:"+contacto.telefonoOficina class ="conocerUnidad") Llamar a la oficina 
+
+  if contacto.celular != ""
+    .col-half
+      .input-group                    
+        input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")   
+        div(class="div")
+          a(href="tel:"+contacto.celular class ="conocerUnidad") Llamar al celular 
+
+if contacto.mail != ""
+
+  .container3
+    .row
+      .input-group    
+        form(action="armarCorreo" method='POST')    
+            input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")  
+            input(type="hidden", name='mail',  value = contacto.mail, placeholder="Mail")  
+            input(type="hidden" , name='IdContacto', value = contacto.IdContacto, placeholder="")     
+            input(type="hidden" , name='origen', value = 'contacto', placeholder="")   
+            input(type='hidden' value= 0   name="IdCentroCosto")                   
+            input(type="submit", value="Mandar Correo" class ="mandarCoreo")
+
+
+.container3
+  .row
+    .input-group    
+      form(action="verListaContactos" method='POST')    
+        input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")                     
+        input(type="submit", value="Cancelar" class ="btnCancelar")  

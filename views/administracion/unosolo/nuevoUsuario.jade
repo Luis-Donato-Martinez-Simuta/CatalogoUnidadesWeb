@@ -2,7 +2,7 @@ doctype html
 html(lang='es')
   head
     meta(charset='UTF-8')
-    title Mi Perfil
+    title Nuevo usuario
   link(rel='stylesheet' href='/stylesheets/genericoUnoSolo.css')
   body
     header.header
@@ -50,6 +50,18 @@ html(lang='es')
             form(action="verListaCentrosCosto"  method='POST')
               input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
               button(type="submit" class="btnMenu") Centros de Costo
+          a 
+            form(action="verListaContactos"  method='POST')
+              input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
+              button(type="submit" class="btnMenu") Contactos     
+          a 
+            form(action="verListaOficinas"  method='POST')
+              input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
+              button(type="submit" class="btnMenu") Oficinas            
+          a 
+            form(action="verListaPuestos"  method='POST')
+              input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
+              button(type="submit" class="btnMenu") Puestos                    
           if usuario.tipoUsuario == 1          
             a 
               form(action="verListaUsuarios"  method='POST')
@@ -60,7 +72,6 @@ html(lang='es')
 
 // .h3 Comienza tu prueba gratuita de 30 días ya mismo
 // p o puedes comprar tu plan en Softlife ahora mismo
-
 .container2
   form(action="guardarNuevoUsuario" method='POST')
     input(type='hidden' value= usuario.IdUsuario   name="idtemp") 
@@ -79,35 +90,51 @@ html(lang='es')
       .col-half
         h4 Nombre completo
           .input-group.input-group-icon
-            input(type="text",name='nombreCompleto', value = usuarioVer.nombreCompleto , placeholder="Nombre completo")
+            input(type="text",name='nombreCompleto', value = usuarioVer.nombreCompleto , placeholder="Nombre completo", required)
             .input-icon
               i.fa.fa-user
-          h4 Nombre de usuario
-          .input-group.input-group-icon
-            input(type="text",name='username',  value = usuarioVer.username , placeholder="Nombre de usuario")
-            .input-icon
-              i.fa.fa-envelope
-          h4 Contraseña
-          .input-group.input-group-icon
-            input(type="password", name='pass', value = usuarioVer.pass ,  placeholder="Contraseña")
-            .input-icon
-              i.fa.fa-envelope              
       .col-half
-        h4 Telefono
+        h4 Telefono (Max 10 digitos)
         .input-group.input-group-icon
-          input(type="text",name='telefono', value = usuarioVer.telefono,  placeholder="Telefono")
+          input(type="tel", pattern="[0-9]{10}",name='telefono', value = usuarioVer.telefono,  placeholder="Telefono")
           .input-icon
             i.fa.fa-key
+    .row
+      h4 Nombre de usuario
+      .input-group.input-group-icon
+        input(type="text",name='username',  value = usuarioVer.username , placeholder="Nombre de usuario", required)
+        .input-icon
+          i.fa.fa-envelope
+    .row
+      .col-half
+        h4 Contraseña
+        .input-group.input-group-icon
+          input(type="password", name='pass', value = usuarioVer.pass ,  placeholder="Contraseña", required)
+          .input-icon
+            i.fa.fa-envelope 
         h4 Email 
         .input-group.input-group-icon
-          input(type="email",name='mail', value = usuarioVer.mail,  placeholder="Email")
+            if tipoMensaje == 10              
+              input(type="text", name='mail', value = errorMail,  placeholder="Email", class="email1")
+              input(type="text",name='dominio', value = '@dominosgda.com',  placeholder="Email", class="email", readonly)               
+            else                         
+              input(type="text", name='mail', value = usuario.mail,  placeholder="Email", class="email1")
+              input(type="text",name='dominio', value = '@dominosgda.com',  placeholder="Email", class="email", readonly)  
           .input-icon
-            i.fa.fa-key 
+            i.fa.fa-key              
+      .col-half
         h4 Confirme Contraseña 
         .input-group.input-group-icon
-          input(type="password",name='confirmPass',  usuarioVer.pass, placeholder="Confirme Contraseña")
+          input(type="password",name='confirmPass',  usuarioVer.pass, placeholder="Confirme Contraseña", required)
           .input-icon
-            i.fa.fa-key                
+            i.fa.fa-key    
+        
+        h4 Contraseña email 
+        .input-group.input-group-icon
+          input(type="password",name='mailPass', value = usuarioVer.passMail,  placeholder="Contraseña Mail")
+          .input-icon
+            i.fa.fa-key 
+                    
       h4 Direccion 
       .input-group.input-group-icon
         input(type="text",name='direccion',  value = usuarioVer.direccion,  placeholder="Direccion")
@@ -164,5 +191,4 @@ html(lang='es')
     .input-group    
       form(action="verListaUsuarios" method='POST')    
         input(type='hidden' value= usuario.IdUsuario name="IdUsuario")                           
-        input(type="submit", value="Cancelar" class ="btnCancelar")            
-
+        input(type="submit", value="Cancelar" class ="btnCancelar") 

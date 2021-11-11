@@ -2,14 +2,17 @@ doctype html
 html(lang='es')
   head
     meta(charset='UTF-8')
-    title Tipo Unidad
+    title Nuevo usuario
+    
     link(rel='stylesheet' href='/stylesheets/genericoUnoSolo.css')
+    link(rel='stylesheet' href='/stylesheets/correo.css')
   body
     header.header
       .container
         .btn-menu
           label(for='btn-menu') ☰
-        .logo
+        .logo    
+              
           h1 Administrar
         nav.menu
           a 
@@ -57,11 +60,11 @@ html(lang='es')
           a 
             form(action="verListaOficinas"  method='POST')
               input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
-              button(type="submit" class="btnMenu") Oficinas  
+              button(type="submit" class="btnMenu") Oficinas            
           a 
             form(action="verListaPuestos"  method='POST')
               input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
-              button(type="submit" class="btnMenu") Puestos                              
+              button(type="submit" class="btnMenu") Puestos                    
           if usuario.tipoUsuario == 1          
             a 
               form(action="verListaUsuarios"  method='POST')
@@ -70,66 +73,50 @@ html(lang='es')
   
         label(for='btn-menu') ✖️
 
+    
+    
+    .container2
+        .cuerpoMensaje
+            if tipoMensaje == 1 
+              label(class="ok") Mensaje enviado corectamente
+            if tipoMensaje == 2
+              label(class="lblError") No se mando el mensaje, por temas de auntenticacion
+              br
+              label(class="lblError") Verificar que cuente con un correo y contraseña cargados en su perfil
+              br
+              label(class="lblError") o verificar que esten bien escritos su usuario y contraseña en su perfil
+            h1 Correo
+            form(action="mandarCorreo" method='POST')
+                input(type='hidden' placeholder = 'Para' readonly value = mail + '@dominosgda.com' name = 'destinatario')
+                input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
+                input(  type='text' placeholder='De' readonly value = 'De: ' + usuario.nombreCompleto + ' <' + usuario.mail + '@dominosgda.com' +'>' )
+                //input( name = 'nombreCompleto' type='hidden' placeholder='De' readonly value = 'De: ' + usuario.nombreCompleto + ' <' + usuario.mail + '@dominosgda.com' +'>' )                br
+                br
+                br
+                input( type='text' placeholder = 'Para' readonly value = 'Para: ' + mail + '@dominosgda.com') 
+                input( type='hidden' placeholder = 'Para' readonly value =  mail   name = 'correoDestino') 
+                br
+                br        
+                input(type='text' placeholder='Asunto'  name = 'asunto')
+                br
+                br              
+                p
+                    textarea(class='mensaje' name='mensaje' placeholder='Mensaje...')
+                br
+                input(type="submit", value="Enviar" class ="brnGuardar")
+            br
 
+            if origen == "contacto"
 
-.container2
-  form(action="guardarTipoUnidad" method='POST')
-   
-    if tipoMensaje == 1 
-      label(class="ok") Datos guardados correctamente
-    else  
-      if tipoMensaje == 2
-        label(class="lblError") Algo salio mal, los datos no se guardaron
-    input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
-    input(type='hidden' value= tipoUnidad.IdTipoUnidad   name="IdTipoUnidad") 
+              form(action="verUnContacto" method='POST')    
+                  input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
+                  input(type='hidden' value= IdContacto   name="IdContacto")                     
+                  input(type="submit", value="Cancelar" class ="btnCancelar")  
+            else  
+              if origen == "centroCosto"
 
-    h3 Informacion del Tipo de Unidad
-    .row
-      .col-half
-        h4 Nombre
-          .input-group.input-group-icon
-            input(type="text", name="nombreTipo", value = tipoUnidad.nombreTipo , placeholder="Nombre Tipo Unidad", required)
-            .input-icon
-              i.fa.fa-user
+                form(action="verCentroCosto" method='POST')    
+                    input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
+                    input(type='hidden' value= IdCentroCosto   name="IdCentroCosto")                     
+                    input(type="submit", value="Cancelar" class ="btnCancelar")                
         
-        h4 Status
-        .input-group 
-          select(name="status")
-            if tipoUnidad.status == true
-              option(class="opt" value = '1') Activo
-              if usuario.tipoUsuario == 1
-                option(class="opt" value ='0') Inactivo
-            else 
-              option(class="opt" value = '0') Inactivo 
-              if usuario.tipoUsuario == 1
-                option(class="opt" value = '1') Activo
-
-      .col-half
-        h4 Orden
-          .input-group.input-group-icon
-            input(type="text", name="orden", value = tipoUnidad.orden  , placeholder="Orden")
-            .input-icon
-              i.fa.fa-envelope
-                        
-    .row
-        
-        .input-group
-          if usuario.tipoUsuario == 1 || agregar
-            input(type="submit", value="Guardar" class="brnGuardar")
-
-.container3
-  .row 
-    .input-group
-      if usuario.tipoUsuario == 1 || usuario.tipoUsuario == 2
-        form(action="nuevoTipoUnidad" method='POST')    
-          input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")  
-          input(type='hidden' value= 1   name="agregar")      
-          input(type="submit", value="Nuevo" class ="brnNuevo")
- 
-.container3
-  .row
-    .input-group    
-      
-      form(action="verListaTipoUnidad" method='POST')    
-        input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")                     
-        input(type="submit", value="Cancelar" class ="btnCancelar")           

@@ -1,0 +1,59 @@
+doctype html
+html(lang='es')
+  head
+    meta(charset='UTF-8')
+    title Reporte Centros de Costo
+    link(rel='stylesheet' href='/stylesheets/reportes/reporteEmpresas.css')
+  body
+
+
+    #encabezado
+      
+
+    #main-container
+      label(class="lblNameGrupo" ) GRUPO DOMINOS
+      br
+      br
+      label() _____________________________________________________________________________________________________________________________________________________________________
+
+      br
+      
+      label(class="lblTitulo" ) Contactos en el Sistema
+
+      br
+
+      table
+        //caption Statement Summary
+        thead
+          tr
+            th Nombre
+            th Puesto
+            th Oficina
+            th Telefono Oficina
+            th Ext. Tel. Oficina
+            th Telefono nombreOficina
+            th Celular
+            th Cumpleaños
+
+        tbody
+        each c in listaContactos
+          tr
+            td= c.nombreContacto   
+            td= c.nombrePuesto   
+            td= c.nombreOficina 
+            td= c.telefonoOficina
+            td= c.extTelefono
+            td= c.telefonoOficina
+            td= c.celular
+            td= c.cumpleanos
+ 
+      .containerFecha
+        br
+        br
+        label(class="lblElaboradousuario") Usuario: #{usuario.nombreCompleto}
+        
+              
+        laber(class="lblElaboradoFecha") Fecha y Hora de impresion: #{fecha} #{hora} hrs
+        br  
+        br
+        br    

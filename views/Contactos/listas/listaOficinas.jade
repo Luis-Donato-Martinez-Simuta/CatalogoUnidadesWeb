@@ -1,10 +1,9 @@
 doctype html
-head
-    meta(charset="UTF-8")
-    meta(http-equiv="X-UA-Compatible", content="IE=edge")
-    link(rel="stylesheet", href="/stylesheets/genericoListas.css")
-    //link(rel="stylesheet", href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css")
-    title Empresas
+html(lang='es')
+  head
+    meta(charset='UTF-8')
+    title Oficinas
+    link(rel='stylesheet' href='/stylesheets/genericoListas.css')
   body
     header.header
       .container
@@ -25,7 +24,7 @@ head
             form(action="about"  method='POST')
               input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
               button(type="submit" class="btnMenu") Acerca de          
-          a
+          a          
             form(action="irLogin"  method='GET')
               input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
               button(type="submit" class="btnMenu") LogOut
@@ -58,60 +57,55 @@ head
           a 
             form(action="verListaOficinas"  method='POST')
               input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
-              button(type="submit" class="btnMenu") Oficinas    
-          a 
-            form(action="verListaPuestos"  method='POST')
-              input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
-              button(type="submit" class="btnMenu") Puestos                            
+              button(type="submit" class="btnMenu") Oficinas                                
           if usuario.tipoUsuario == 1          
             a 
               form(action="verListaUsuarios"  method='POST')
                 input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
                 button(type="submit" class="btnMenu") Usuarios
+          a 
+            form(action="verListaPuestos"  method='POST')
+              input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
+              button(type="submit" class="btnMenu") Puestos                
   
-        label(for='btn-menu') ✖️ 
+        label(for='btn-menu') ✖️
 
 
-
-  #main-container
-    label(class="lblListaUnidades" ) Lista de Empresas
-    
-    br
-    br
-
-    form.col-12(action="reporteEmpresas"  method='POST' name="Id")
-      input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
-      button(type="submit" class="btnReporte" ) Generar reporte
-    if usuario.tipoUsuario == 1 || usuario.tipoUsuario == 2 
-      form.col-12(action="nuevaEmpresa"  method='POST' name="Id")
+    #main-container
+      label(class="lblListaUnidades" ) Lista de Oficinas
+      
+  
+      form.col-12(action="reporteOficinas"  method='POST' name="Id")
         input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
-        input(type='hidden' value= 1   name="guardar")
-        button(type="submit" class="bntNuevoLista" ) Agregar Empresa
+        input(type='hidden' value= usuario.IdFranquicia   name="IdFranquicia")
+        button(type="submit" class="btnReporte" ) Generar reporte
+      if usuario.tipoUsuario == 1 || usuario.tipoUsuario == 2 
+        form.col-12(action="nuevaOficina"  method='POST' name="Id")
+          input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
+          input(type='hidden' value= 1   name="agregar")
+          button(type="submit" class="bntNuevoLista" ) Agregar Oficina
 
-    br
-    br
 
-    table
-      thead      
-        tr
-          //th Id
-          th Nombre        
-          th Status
-          th Accion               
-      tbody        
-      each e in listaEmpresas      
-        tr
-          //td= e.idEmpresa  
-          td= e.nombreEmpresa
-          if e.status == true         
-            td Activo     
-          else
-            td Inactivo
-          td
-            form.col-12(action="verEmpresa"  method='POST')
-              input(type='hidden' value= e.idEmpresa     name="IdEmpresa")
-              input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
-              button(type="submit" class="btnVerUnidad" ) Ver empresa  
 
-        
+      table
+        //caption Statement Summary
+        thead
+          tr
+            th Nombre
+            th Status
+            th Accion
+
+        tbody
+        each o in listaOficinas
+          tr
+            td= o.nombreOficina   
+            if o.status == true
+                td Activo
+            else 
+                td Inactivo
+            td 
+              form.col-12(action="verUnaOficina"  method='POST')
+                input(type='hidden' value= o.IdOficina   name="IdOficina")
+                input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")
+                button(type="submit" class="btnVerUnidad" ) Ver Oficina
 

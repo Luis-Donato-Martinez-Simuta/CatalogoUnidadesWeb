@@ -50,6 +50,18 @@ html(lang='es')
             form(action="verListaCentrosCosto"  method='POST')
               input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
               button(type="submit" class="btnMenu") Centros de Costo
+          a 
+            form(action="verListaContactos"  method='POST')
+              input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
+              button(type="submit" class="btnMenu") Contactos     
+          a 
+            form(action="verListaOficinas"  method='POST')
+              input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
+              button(type="submit" class="btnMenu") Oficinas       
+          a 
+            form(action="verListaPuestos"  method='POST')
+              input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
+              button(type="submit" class="btnMenu") Puestos                      
           if usuario.tipoUsuario == 1          
             a 
               form(action="verListaUsuarios"  method='POST')
@@ -60,35 +72,55 @@ html(lang='es')
 
 // .h3 Comienza tu prueba gratuita de 30 días ya mismo
 // p o puedes comprar tu plan en Softlife ahora mismo
-
 .container2
   form(action="guardarUsuario" method='POST')
     
     input(type='hidden' value= usuario.IdUsuario   name="idtemp") 
     input(type='hidden' value= usuario.IdUsuario   name="IdUsuarioVer") 
     
+    if tipoMensaje == 10
+        label(class="lblError") Ese nombre de correo electronico no es valido '#{errorMail}'   
+
+    if tipoMensaje == 1 
+      label(class="ok") Datos guardados correctamente
+    else  
+      if tipoMensaje == 2
+        label(class="lblError") Algo salio mal, los datos no se guardaron
+ 
+
     h3 Mi Informacion
     .row
-      .col-half
-        h4 Nombre completo
+      h4 Nombre completo
           .input-group.input-group-icon
             input(type="text", name='nombreCompleto', value = usuario.nombreCompleto , placeholder="Nombre completo")
             .input-icon
               i.fa.fa-user
+      .col-half
+        
           h4 Nombre de usuario
           .input-group.input-group-icon
             input(type="username",name='username' , value = usuario.username , placeholder="Nombre de usuario")
             .input-icon
               i.fa.fa-envelope
+          h4 Email 
+          .input-group.input-group-icon
+            if tipoMensaje == 10              
+              input(type="text", name = 'mail', value = errorMail,  placeholder="Email", class="email1")
+              input(type="text",name ='dominio', value = '@dominosgda.com',  placeholder="Email", class="email", readonly)               
+            else                         
+              input(type="text", name='mail', value = usuario.mail,  placeholder="Email", class="email1")
+              input(type="text",name ='dominio', value = '@dominosgda.com',  placeholder="Email", class="email", readonly)              
+            .input-icon
+              i.fa.fa-key 
       .col-half
-        h4 Telefono
+        h4 Telefono (Max 10 digitos)
         .input-group.input-group-icon
-          input(type="text", name='telefono', value = usuario.telefono,  placeholder="Telefono")
+          input(type="tel", pattern="[0-9]{10}", name='telefono', value = usuario.telefono,  placeholder="Telefono")
           .input-icon
             i.fa.fa-key
-        h4 Email 
+        h4 Contraseña email 
         .input-group.input-group-icon
-          input(type="email", name='mail', value = usuario.mail,  placeholder="Email")
+          input(type="text", name='passMail', value = usuario.passMail placeholder="Contraseña email")
           .input-icon
             i.fa.fa-key   
       h4 Direccion 
@@ -148,6 +180,3 @@ html(lang='es')
         input(type='hidden' value= usuario.IdUsuario   name="IdUsuario")    
         input(type='hidden' value= usuario.IdUsuario   name="IdUsuarioVer")                  
         input(type="submit", value="Cambiar Contraseña" class ="btnCancelar")
-
-
-

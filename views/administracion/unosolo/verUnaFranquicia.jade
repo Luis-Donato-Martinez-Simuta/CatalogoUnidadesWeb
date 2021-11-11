@@ -51,6 +51,18 @@ html(lang='es')
             form(action="verListaCentrosCosto"  method='POST')
               input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
               button(type="submit" class="btnMenu") Centros de Costo
+          a 
+            form(action="verListaContactos"  method='POST')
+              input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
+              button(type="submit" class="btnMenu") Contactos     
+          a 
+            form(action="verListaOficinas"  method='POST')
+              input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
+              button(type="submit" class="btnMenu") Oficinas    
+          a 
+            form(action="verListaPuestos"  method='POST')
+              input(type='hidden' value= usuario.IdUsuario   name="IdUsuario") 
+              button(type="submit" class="btnMenu") Puestos                            
           if usuario.tipoUsuario == 1          
             a 
               form(action="verListaUsuarios"  method='POST')
@@ -73,7 +85,7 @@ html(lang='es')
         .col-half
           h4 Nombre Franquicia
             .input-group.input-group-icon
-              input(type="text", name = "nombreFranquicia", value = franquicia.nombreFranquicia , placeholder="Nombre franquicia")
+              input(type="text", name = "nombreFranquicia", value = franquicia.nombreFranquicia , placeholder="Nombre franquicia",required)
               .input-icon
                 i.fa.fa-user
         .col-half
